@@ -121,9 +121,18 @@ Server: nginx
 
   <p><strong>Sua análise:</strong></p>
   <ol>
-    <li>Na requisição que você escolheu, qual o valor de Content-Type?</li>
-    <li>Qual servidor respondeu (header Server)? E o status code?</li>
-    <li>Compare o Content-Type de um arquivo CSS com o de uma imagem. O que muda?</li>
+    <li>
+      Na requisição que você escolheu, qual o valor de Content-Type?<br>
+      Resposta: text/html; charset=UTF-8.
+    </li>
+    <li>
+      Qual servidor respondeu (header Server)? E o status code?<br>
+      Resposta: O header Server não foi informado — a Globo esconde isso de propósito, por segurança, pra não revelar qual tecnologia usa no servidor. Em vez disso, aparece um header "Via: 2.1 KubeCache", que indica que tem um cache/proxy no meio (baseado em Kubernetes). Status code: 200.
+    </li>
+    <li>
+      Compare o Content-Type de um arquivo CSS com o de uma imagem. O que muda?<br>
+      Resposta: CSS veio como "text/css; charset=utf-8" e a imagem como "image/webp". O tipo geral muda de text/ pra image/, e isso diz pro navegador como tratar cada arquivo: no CSS, ele lê o conteúdo como texto e interpreta os comandos de estilo para aplicar no site; na imagem, ele não interpreta comando nenhum, só decodifica e replica a imagem na tela.
+    </li>
   </ol>
 
   <hr>
