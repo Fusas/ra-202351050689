@@ -78,17 +78,23 @@ www.globo.com  200     document   387 kB    513 ms
   </p>
 
   <pre>
-Doc  (HTML) .......... ____ requisicoes
-CSS  (estilo) ........ ____ requisicoes
-JS   (comportamento) . ____ requisicoes
-Img  (imagens) ....... ____ requisicoes
-Font (tipografia) .... ____ requisicoes
+Doc  (HTML) .......... 3 requisicoes (229 kB)
+CSS  (estilo) ........ 3 requisicoes (234 kB)
+JS   (comportamento) . 48 requisicoes (246 kB)
+Img  (imagens) ....... 95 requisicoes (252 kB)
+Font (tipografia) .... 4 requisicoes (255 kB)
   </pre>
 
   <p><strong>Sua análise:</strong></p>
   <ol>
-    <li>Ninguém clicou nesses arquivos. Quem, então, pediu por eles?</li>
-    <li>Há requisições para endereços de OUTROS domínios? Anote um deles e arrisque um palpite sobre o que seja.</li>
+    <li>
+      Ninguém clicou nesses arquivos. Quem, então, pediu por eles?<br>
+      Resposta: O HTML inicial (Rodada 01) é a única requisição que eu mesmo pedi, ao digitar o endereço. Todo o resto (CSS, JS, imagens, fontes) foi pedido automaticamente pelo próprio navegador, que lê o HTML e, ao encontrar tags como &lt;img&gt;, &lt;link&gt; e &lt;script&gt;, sai buscando cada arquivo referenciado sem eu precisar clicar em nada.
+    </li>
+    <li>
+      Há requisições para endereços de OUTROS domínios? Anote um deles e arrisque um palpite sobre o que seja.<br>
+      Resposta: Sim, o domínio s2-home-globo.glbimg.com. Palpite: é um subdomínio/CDN separado que a Globo usa só pra guardar e servir imagens (por exemplo, vi uma foto do Flávio e do Lula vindo desse endereço).
+    </li>
   </ol>
 
   <hr>
