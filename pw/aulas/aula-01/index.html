@@ -145,18 +145,27 @@ Server: nginx
   </p>
 
   <pre>
-HTTP/1.1 ___ ________            &lt;- preencha status e mensagem
+HTTP/1.1 404 Not Found
 
 Compare com a rodada 01:
-  rodada 01 -&gt; status ______
-  rodada 04 -&gt; status ______
+  rodada 01 -&gt; status 200
+  rodada 04 -&gt; status 404
   </pre>
 
   <p><strong>Sua análise:</strong></p>
   <ol>
-    <li>O servidor está no ar ou fora do ar? Como você sabe?</li>
-    <li>O erro foi de quem pediu ou de quem respondeu? Justifique.</li>
-    <li>Se o status fosse 500 em vez do que você anotou, a conclusão seria a mesma? Por quê?</li>
+    <li>
+      O servidor está no ar ou fora do ar? Como você sabe?<br>
+      Resposta: Está no ar e respondendo normalmente. Eu sei porque ele devolveu uma resposta completa (status 404, com uma página de erro cheia de imagens) — ele só não encontrou a página que eu pedi, porque ela não existe.
+    </li>
+    <li>
+      O erro foi de quem pediu ou de quem respondeu? Justifique.<br>
+      Resposta: Foi de quem pediu (eu). O status 404 está na família 4xx, que indica erro do lado do cliente — eu pedi algo que não existe no servidor.
+    </li>
+    <li>
+      Se o status fosse 500 em vez do que você anotou, a conclusão seria a mesma? Por quê?<br>
+      Resposta: Não, mudaria. O 4xx é erro de quem pediu (o navegador/cliente pediu algo errado), enquanto o 5xx é erro do servidor — ou seja, se fosse 500, a culpa passaria a ser do servidor, que quebrou tentando responder ao meu pedido.
+    </li>
   </ol>
 
   <hr>
