@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Ficha de Investigação - Aula 01</title>
+</head>
+<body>
+
+  <h1>FICHA DE INVESTIGAÇÃO</h1>
+  <p><em>O que viaja pela rede entre o seu clique e a página na tela</em></p>
+  <p><strong>Programação Web — Aula 1 de 20 · Arquitetura das Aplicações Web</strong></p>
+
+  <h2>🎯 MISSÃO</h2>
+  <p>
+    Você vai abrir as ferramentas de desenvolvedor do navegador e descobrir,
+    por conta própria, o que acontece entre apertar Enter numa URL e ver a
+    página pronta. Ninguém vai explicar antes — as respostas estão na tela.
+  </p>
+  <ul>
+    <li>Escolha um site à sua livre escolha e mantenha o MESMO site nas 5 rodadas.</li>
+    <li>Abra o DevTools: F12 (ou Ctrl+Shift+I) e vá para a aba Network.</li>
+    <li>Preencha a ficha à mão, com suas palavras. Não há resposta "de gabarito".</li>
+    <li>Errar aqui é esperado e não vale nota: a ficha é material de investigação, não prova.</li>
+  </ul>
+
+  <p>
+    <strong>⏱️ Tempo:</strong> 40 minutos
+    &nbsp;&nbsp;&nbsp;
+    <strong>👥 Formato:</strong> individual, conferindo cada rodada com o colega ao lado
+  </p>
+
+  <p>
+    <strong>Nome:</strong> ____________________
+    &nbsp;&nbsp;&nbsp;
+    <strong>Turma:</strong> ____________________
+    &nbsp;&nbsp;&nbsp;
+    <strong>Data:</strong> ___ / ___ / ______
+  </p>
+
+  <hr>
+
+  <h2>RODADA 01 — A primeira requisição</h2>
+  <p><em>DevTools → aba Network → marcar "Disable cache" → recarregar a página (F5)</em></p>
+  <p>
+    A lista se enche de linhas. Olhe apenas a PRIMEIRA delas — é o documento
+    que o navegador pediu quando você digitou o endereço.
+  </p>
+
+  <pre>
+Name          Status   Type       Size      Time
+------------  ------   --------   -------   ------
+www.site.com   ___     document    ___ kB    ___ ms
+  </pre>
+
+  <p><strong>Sua análise:</strong></p>
+  <ol>
+    <li>Qual é o método HTTP e o status code dessa primeira requisição?</li>
+    <li>Qual o tamanho dela em kB? Ela é a maior da lista?</li>
+    <li>Some o total transferido pela página (barra inferior do DevTools). Quantas requisições foram, no total?</li>
+  </ol>
+
+  <hr>
+
+  <h2>RODADA 02 — O que vem depois</h2>
+  <p><em>Usar os filtros do topo da aba Network: All · Doc · CSS · JS · Img · Font</em></p>
+  <p>
+    O navegador pediu muito mais do que você digitou. Classifique o que veio
+    depois e conte cada tipo.
+  </p>
+
+  <pre>
+Doc  (HTML) .......... ____ requisicoes
+CSS  (estilo) ........ ____ requisicoes
+JS   (comportamento) . ____ requisicoes
+Img  (imagens) ....... ____ requisicoes
+Font (tipografia) .... ____ requisicoes
+  </pre>
+
+  <p><strong>Sua análise:</strong></p>
+  <ol>
+    <li>Ninguém clicou nesses arquivos. Quem, então, pediu por eles?</li>
+    <li>Há requisições para endereços de OUTROS domínios? Anote um deles e arrisque um palpite sobre o que seja.</li>
+  </ol>
+
+  <hr>
+
+  <h2>RODADA 03 — Anatomia de um pedido e de uma resposta</h2>
+  <p><em>Clicar em qualquer linha da lista → aba Headers → seções General e Response Headers</em></p>
+  <p>
+    Cada linha da lista esconde uma conversa em texto puro. É isso que
+    trafega na rede:
+  </p>
+
+  <pre>
+GET /index.html HTTP/1.1          &lt;- o pedido do navegador
+Host: www.site.com
+User-Agent: Mozilla/5.0 ...
+
+HTTP/1.1 200 OK                   &lt;- a resposta do servidor
+Content-Type: text/html; charset=utf-8
+Content-Length: 48213
+Server: nginx
+
+&lt;!DOCTYPE html&gt; ...               &lt;- o conteudo, finalmente
+  </pre>
+
+  <p><strong>Sua análise:</strong></p>
+  <ol>
+    <li>Na requisição que você escolheu, qual o valor de Content-Type?</li>
+    <li>Qual servidor respondeu (header Server)? E o status code?</li>
+    <li>Compare o Content-Type de um arquivo CSS com o de uma imagem. O que muda?</li>
+  </ol>
+
+  <hr>
+
+  <h2>RODADA 04 — Quando alguma coisa dá errado</h2>
+  <p><em>Na barra de endereços, acrescentar /pagina-que-nao-existe-123 ao domínio e dar Enter</em></p>
+  <p>
+    Com o DevTools aberto, observe a requisição da página inexistente. O
+    servidor respondeu — só não respondeu o que você queria.
+  </p>
+
+  <pre>
+HTTP/1.1 ___ ________            &lt;- preencha status e mensagem
+
+Compare com a rodada 01:
+  rodada 01 -&gt; status ______
+  rodada 04 -&gt; status ______
+  </pre>
+
+  <p><strong>Sua análise:</strong></p>
+  <ol>
+    <li>O servidor está no ar ou fora do ar? Como você sabe?</li>
+    <li>O erro foi de quem pediu ou de quem respondeu? Justifique.</li>
+    <li>Se o status fosse 500 em vez do que você anotou, a conclusão seria a mesma? Por quê?</li>
+  </ol>
+
+  <hr>
+
+  <h2>RODADA 05 — Quem faz o quê na página</h2>
+  <p><em>DevTools → Ctrl+Shift+P → digitar "Disable CSS" → Enter. Depois recarregue para desfazer.</em></p>
+  <p>Este é o experimento que separa as três tecnologias da web. Observe a página antes e depois:</p>
+
+  <pre>
+COM CSS                    SEM CSS
+-----------------------    -----------------------
+cores, colunas, fontes     ______________________
+menu na horizontal         ______________________
+textos e links             ______________________
+  </pre>
+
+  <p><strong>Sua análise:</strong></p>
+  <ol>
+    <li>O texto e as imagens desapareceram junto com o CSS? O que isso diz sobre onde o CONTEÚDO mora?</li>
+    <li>Descreva em uma frase o papel do CSS, com base apenas no que você acabou de ver.</li>
+    <li>Ainda restou algum comportamento (menu que abre, botão que responde)? De qual das três tecnologias ele vem?</li>
+  </ol>
+
+</body>
+</html>
