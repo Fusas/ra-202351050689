@@ -49,14 +49,23 @@
   <pre>
 Name          Status   Type       Size      Time
 ------------  ------   --------   -------   ------
-www.site.com   ___     document    ___ kB    ___ ms
+www.globo.com  200     document   387 kB    513 ms
   </pre>
 
   <p><strong>Sua análise:</strong></p>
   <ol>
-    <li>Qual é o método HTTP e o status code dessa primeira requisição?</li>
-    <li>Qual o tamanho dela em kB? Ela é a maior da lista?</li>
-    <li>Some o total transferido pela página (barra inferior do DevTools). Quantas requisições foram, no total?</li>
+    <li>
+      Qual é o método HTTP e o status code dessa primeira requisição?<br>
+      Resposta: Método GET, status 200.
+    </li>
+    <li>
+      Qual o tamanho dela em kB? Ela é a maior da lista?<br>
+      Resposta: 387 KB. Não é a maior — o arquivo player.min.js pesa 1210 KB, mais de 3x o tamanho do documento.
+    </li>
+    <li>
+      Some o total transferido pela página (barra inferior do DevTools). Quantas requisições foram, no total?<br>
+      Resposta: 244 requisições, 5.9 MB transferidos no total.
+    </li>
   </ol>
 
   <hr>
