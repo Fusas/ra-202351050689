@@ -177,16 +177,25 @@ Compare com a rodada 01:
   <pre>
 COM CSS                    SEM CSS
 -----------------------    -----------------------
-cores, colunas, fontes     ______________________
-menu na horizontal         ______________________
-textos e links             ______________________
+cores, colunas, fontes     sem cor, sem colunas, fonte padrao
+menu na horizontal         lista de links, um embaixo do outro
+textos e links             continuam aparecendo normalmente
   </pre>
 
   <p><strong>Sua análise:</strong></p>
   <ol>
-    <li>O texto e as imagens desapareceram junto com o CSS? O que isso diz sobre onde o CONTEÚDO mora?</li>
-    <li>Descreva em uma frase o papel do CSS, com base apenas no que você acabou de ver.</li>
-    <li>Ainda restou algum comportamento (menu que abre, botão que responde)? De qual das três tecnologias ele vem?</li>
+    <li>
+      O texto e as imagens desapareceram junto com o CSS? O que isso diz sobre onde o CONTEÚDO mora?<br>
+      Resposta: Não, o texto e as imagens continuaram aparecendo, só sem estilo. Isso mostra que o CONTEÚDO mora no HTML (o esqueleto), não no CSS — o CSS só cuida da aparência por cima do que já existe.
+    </li>
+    <li>
+      Descreva em uma frase o papel do CSS, com base apenas no que você acabou de ver.<br>
+      Resposta: O CSS é a "pele" do site — ele cuida de cores, imagens de fundo, layout e fontes, dando aparência ao esqueleto que o HTML já montou.
+    </li>
+    <li>
+      Ainda restou algum comportamento (menu que abre, botão que responde)? De qual das três tecnologias ele vem?<br>
+      Resposta: Sim, os links e botões continuaram respondendo ao clique mesmo sem CSS. Esse comportamento (a parte que se move e reage) vem do JavaScript.
+    </li>
   </ol>
 
 </body>
