@@ -1,0 +1,74 @@
+/*
+  GearUp — Vitrine de Acessórios Gamer
+  CSS base: reset + design tokens (custom properties)
+*/
+
+/* Reset simples: todo elemento passa a contar padding e borda dentro da
+   largura declarada (box-sizing: border-box), em vez de somar por fora.
+   É a base que qualquer projeto de CSS costuma começar. */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Design tokens: variáveis de cor, fonte e espaçamento usadas no site
+   inteiro. Mudar um valor aqui muda em todas as páginas de uma vez. */
+:root {
+  /* cores */
+  --cor-fundo: #0f1117;
+  --cor-fundo-card: #1a1d29;
+  --cor-primaria: #7c3aed;
+  --cor-primaria-clara: #a78bfa;
+  --cor-texto: #e5e7eb;
+  --cor-texto-suave: #9ca3af;
+  --cor-borda: #2d3040;
+  --cor-destaque: #22d3ee;
+
+  /* tipografia */
+  --fonte-base: system-ui, "Segoe UI", Arial, sans-serif;
+  --tamanho-texto: 16px;
+  --tamanho-titulo-grande: 2rem;
+  --tamanho-titulo-medio: 1.4rem;
+  --tamanho-titulo-pequeno: 1.1rem;
+
+  /* espaçamento (escala usada em padding/margin/gap) */
+  --espaco-pequeno: 0.5rem;
+  --espaco-medio: 1rem;
+  --espaco-grande: 2rem;
+
+  /* outros */
+  --raio-borda: 8px;
+}
+
+body {
+  font-family: var(--fonte-base);
+  font-size: var(--tamanho-texto);
+  line-height: 1.6;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+}
+
+/* Foco visível para quem navega pelo teclado (Tab) — importante pra
+   acessibilidade, tema da Aula 5. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--cor-destaque);
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--cor-primaria-clara);
+}
+
+/* Container central: limita a largura em telas grandes e centraliza o
+   conteúdo, com uma margem lateral mínima em telas pequenas. */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--espaco-medio);
+}
