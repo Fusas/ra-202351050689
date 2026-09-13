@@ -29,21 +29,27 @@ Os dois trechos abaixo produzem exatamente a mesma tela. Um deles não diz nada 
 
 ```text
 PAGINA A                              PAGINA B
-<div class="topo">      (1) ______    <header>
-  <div class="menu">    (2) ______      <nav>
-<div class="miolo">     (3) ______    <main>
-  <div class="post">    (4) ______      <article>
-  <div class="lateral"> (5) ______      <aside>
-<div class="rodape">    (6) ______    <footer>
+<div class="topo">      (1) header    <header>
+  <div class="menu">    (2) nav         <nav>
+<div class="miolo">     (3) main      <main>
+  <div class="post">    (4) article     <article>
+  <div class="lateral"> (5) aside       <aside>
+<div class="rodape">    (6) footer    <footer>
 ```
 
 **Sua análise:**
 
 1. As duas páginas renderizam igual. O que exatamente a página B tem que a A não tem?
 
+   Resposta: A diferença é que a versão semântica é autoexplicativa — tanto pra quem lê o código quanto pra máquinas (leitor de tela, motor de busca). `<header>`, `<nav>` etc. já dizem o que são, sem precisar adivinhar pelo nome da classe (que na página A podia ser qualquer coisa).
+
 2. Escolha UMA das div acima e explique como você decidiu qual elemento a substitui.
 
+   Resposta: `<div class="menu">` → `<nav>`. Escolhi porque "menu" ali é um menu de navegação (links pra outras partes do site), e `<nav>` é exatamente o elemento HTML feito pra representar "navegação".
+
 3. Sobrou algum caso em que o div é a escolha certa? Quando?
+
+   Resposta: Sim — o `<div class="conteudo">` que envolve o `<main>` e o `<aside>` continua sendo div mesmo na página semântica. Ele existe só por causa do CSS (`display: flex`), pra organizar o layout lado a lado, sem representar nenhum "tipo" de conteúdo. Div é a escolha certa quando o elemento só serve pra layout/estilo, sem significado próprio.
 
 ## RODADA 02 — O mapa da página
 
