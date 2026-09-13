@@ -58,17 +58,23 @@ PAGINA A                              PAGINA B
 Desenhe (ou descreva) onde ficam as grandes regiões da página que você escolheu, anotando o nome do elemento que marca cada uma (ou "div" se não houver elemento semântico):
 
 ```text
-site investigado: ______________________________
-regiões encontradas (de cima pra baixo): ______________________________
+site investigado: www.globo.com
+regiões encontradas (de cima pra baixo): header, section (vários, um por área: previsão do tempo, destaque, vídeos, franja, grade de programação, vitrine globoplay...), footer
 ```
 
 **Sua análise:**
 
 1. Quantas regiões você conseguiu identificar sem abrir os nós filhos?
 
+   Resposta: 3 elementos de topo (header, section, footer), mas o "miolo" da página é feito de vários `<section>` diferentes empilhados, cada um com uma classe descrevendo a área (ex.: área de previsão do tempo, destaque, vídeos).
+
 2. O site usa elementos semânticos ou div com class? Anote dois nomes de class que você viu.
 
+   Resposta: Usa os dois misturados — elementos semânticos (`header`, `section`, `footer`) só que o conteúdo de cada um é organizado por classes, tipo `hui-container` e `area-previsao-do-tempo`.
+
 3. Existe mais de um `<main>` na página? Deveria existir?
+
+   Resposta: Não existe nenhum `<main>` na página inteira (testei com `document.querySelectorAll('main').length`, deu 0). Deveria existir, sim — pra facilitar o usuário, principalmente quem usa leitor de tela: existe um atalho de teclado pra "pular direto pro conteúdo principal", e esse atalho depende de ter um `<main>` marcado no HTML.
 
 ## RODADA 03 — A hierarquia dos títulos
 
