@@ -85,20 +85,28 @@ Esse comando lista os títulos na ordem em que aparecem no código. Anote os pri
 ```text
 ordem   tag    texto do titulo
 -----   ----   ------------------------------------
-  1     ____   ____________________________________
-  2     ____   ____________________________________
-  3     ____   ____________________________________
-  4     ____   ____________________________________
-  5     ____   ____________________________________
+  1     H1     (vazio)
+  2     H1     amanhã, 13/9
+  3     H1     seg, 14/9
+  4     H1     ter, 15/9
+  5     H1     qua, 16/9
+
+total de títulos na página: 147 (via $$('h1,h2,h3,h4'))
 ```
 
 **Sua análise:**
 
 1. Quantos h1 a página tem? Se tem mais de um, qual seria o problema disso?
 
+   Resposta: Pelo menos 9 h1, todos usados só como nome de dia da semana na previsão do tempo (ex.: "seg, 14/9"). Se a ideia era só deixar o texto grande/destacado, isso é trabalho de CSS, não de h1. O h1 deveria ser o título principal da página (tipo o título de um livro) — ter 9 deles, todos genéricos, atrapalha quem lê só os títulos ou usa leitor de tela, porque não fica claro qual é o assunto principal do site.
+
 2. Algum nível foi pulado (um h2 seguido direto de um h4)? Anote onde.
 
+   Resposta: Não achei nenhum h4 na página inteira (só h1, h2 e h3 apareceram). Mas achei um problema parecido: o h2 "Esporte" (título de uma seção) é seguido de várias notícias que continuam em h2, no mesmo nível — quando deveriam ser h3, um nível abaixo, pra mostrar que estão "dentro" da seção Esporte.
+
 3. Lendo só os títulos, você entende de que a página trata? Se não, o que está faltando?
+
+   Resposta: Não dá pra saber. Só lendo os títulos (dias da semana, depois um monte de manchetes variadas de esporte, política, famosos), não fica claro que é o G1, portal de notícias da Globo. Falta identificar a própria marca/algo característico dela logo no início — um h1 de verdade com o nome/propósito do site.
 
 ## RODADA 04 — O alt que ninguém lê (mas alguém ouve)
 
