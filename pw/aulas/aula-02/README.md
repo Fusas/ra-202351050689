@@ -115,23 +115,29 @@ total de títulos na página: 147 (via $$('h1,h2,h3,h4'))
 Um leitor de tela lê o alt em voz alta no lugar da imagem. Anote os três primeiros e classifique cada um:
 
 ```text
-img 1  alt = _______________________________________
-       ( ) descritivo  ( ) inutil  ( ) ausente  ( ) vazio proposital
+img 1  alt = (sem atributo alt, mas tem aria-hidden="true" — ícone do menu)
+       ( ) descritivo  ( ) inutil  ( ) ausente  (x) vazio proposital
 
-img 2  alt = _______________________________________
-       ( ) descritivo  ( ) inutil  ( ) ausente  ( ) vazio proposital
+img 2  alt = "logo do usuário"
+       ( ) descritivo  (x) inutil  ( ) ausente  ( ) vazio proposital
 
-img 3  alt = _______________________________________
-       ( ) descritivo  ( ) inutil  ( ) ausente  ( ) vazio proposital
+img 3  alt = (SEM ALT — é a logo do G1)
+       ( ) descritivo  ( ) inutil  (x) ausente  ( ) vazio proposital
 ```
 
 **Sua análise:**
 
 1. Algum alt era só o nome do arquivo ("banner-2024-final.jpg")? Por que isso é inútil?
 
+   Resposta: Não, nenhuma das três era nome de arquivo. Mas seria inútil porque não diz nada sobre o que tem na imagem — quem ouve não entende o conteúdo.
+
 2. Feche os olhos e imagine ouvir a página. O que você perderia com esses alt?
 
+   Resposta: Depende de cada uma. Na imagem 1 (ícone do menu, escondido de propósito) não perderia nada, é só decoração. Na imagem 2 ("logo do usuário") eu saberia que tem algo relacionado a usuário, mas não que é um botão clicável pra ir pra minha conta. Na imagem 3 (sem alt, é a logo do G1) eu não entenderia nada — nem que aquilo é a marca do site.
+
 3. Reescreva o pior dos três de forma que descreva a imagem em menos de 12 palavras.
+
+   Resposta: A pior é a imagem 3 (logo do G1, sem alt nenhum). Reescrevi como: "Logo do G1".
 
 ## RODADA 05 — O link fora de contexto
 
