@@ -28,23 +28,29 @@ Você vai testar formulários reais como um usuário desastrado e depois como al
 Cada campo de formulário é uma tag input com atributos que decidem tudo. Catalogue três campos do formulário que você escolheu:
 
 ```text
-campo   type=____________  name=____________
-  1     id=______________  required? ( )sim ( )nao
+campo   type=tel               name=accountId          (gov.br - login CPF)
+  1     id=accountId           required? (nao tem esse atributo)
 
-campo   type=____________  name=____________
-  2     id=______________  required? ( )sim ( )nao
+campo   type=password          name=password           (gov.br - senha)
+  2     id=password            required? (nao tem esse atributo)
 
-campo   type=____________  name=____________
-  3     id=______________  required? ( )sim ( )nao
+campo   type=password          name=password           (Riot Games - senha)
+  3     id=(nao tem id)        required? (nao tem esse atributo)
 ```
 
 **Sua análise:**
 
 1. Os atributos name e id têm o mesmo valor nos campos que você viu? Eles servem para a mesma coisa?
 
+   Nos campos 1 e 2 sim, name e id eram iguais. Mas no campo 3 (Riot Games) nem tinha id, só name, e o formulário funciona normal. Isso mostra que são coisas diferentes: name é o que vai pro servidor quando envia o formulário, id é só pra usar dentro da própria página (ligar com label, CSS, JS). Só coincidiu de ter o mesmo valor nos dois primeiros.
+
 2. Algum campo usa placeholder em vez de um rótulo visível? Qual o problema disso?
 
+   Sim, os 3 usam placeholder ("Digite seu CPF", "Digite sua senha atual") em vez de label visível. O problema é que o placeholder some assim que você começa a digitar, então se parar no meio ou voltar depois não tem mais nada dizendo o que aquele campo pede.
+
 3. Que tipo de dado cada campo espera receber, só pelo type?
+
+   Campo 1 (type=tel) espera telefone, campo 2 e 3 (type=password) esperam senha. Só que o campo 1 na verdade é usado pra CPF, não telefone, o dev deve ter usado tel só pra abrir teclado numérico no celular.
 
 ## RODADA 02 — O teste do label
 
