@@ -146,15 +146,23 @@ img 3  alt = (SEM ALT — é a logo do G1)
 Leitores de tela permitem navegar por uma lista só de links, sem o texto ao redor. Anote 3 textos de link e teste se sobrevivem sozinhos:
 
 ```text
-link 1: "____________________"  faz sentido sozinho? ( )sim ( )nao
-link 2: "____________________"  faz sentido sozinho? ( )sim ( )nao
-link 3: "____________________"  faz sentido sozinho? ( )sim ( )nao
+link 1: "Ir para menu"                    faz sentido sozinho? (x)sim ( )nao
+link 2: "Ir para conteúdo principal"      faz sentido sozinho? (x)sim ( )nao
+link 3: "Ir para rodapé"                  faz sentido sozinho? (x)sim ( )nao
 ```
+
+Observação: dos 10 primeiros `<a>` da página, só esses 3 tinham texto visível — os outros são links só com ícone/imagem (como o menu e o usuário que vimos na Rodada 04), sem texto. Esses 3 são "skip links": ficam escondidos visualmente e servem pra quem navega por teclado/leitor de tela pular direto pra uma parte da página.
 
 **Sua análise:**
 
 1. Você encontrou algum "clique aqui", "saiba mais" ou "leia"? Para onde ele levava?
 
+   Resposta: Não encontrei nenhum desses nos 3 primeiros links com texto.
+
 2. Reescreva um desses textos para que ele diga o destino sem depender da frase ao redor.
 
+   Resposta: Não precisou reescrever nenhum — os 3 já são bem descritivos por si só (dizem exatamente pra onde vão, mesmo sem nenhum texto ao redor).
+
 3. Algum link abria em nova aba? Como você descobriu isso olhando o código?
+
+   Resposta: Não. Procurei `target="_blank"` no painel Elements (Ctrl+F) e o resultado foi "0 de 0" — nenhum link da página usa esse atributo.
