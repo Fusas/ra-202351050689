@@ -37,15 +37,15 @@ www.globo.com  200     document   387 kB    513 ms
 
 1. Qual é o método HTTP e o status code dessa primeira requisição?
 
-   Resposta: Método GET, status 200.
+   Método GET, status 200.
 
 2. Qual o tamanho dela em kB? Ela é a maior da lista?
 
-   Resposta: 387 KB. Não é a maior — o arquivo player.min.js pesa 1210 KB, mais de 3x o tamanho do documento.
+   387 KB. Não é a maior, o player.min.js pesa 1210 kb, bem mais que o documento.
 
 3. Some o total transferido pela página (barra inferior do DevTools). Quantas requisições foram, no total?
 
-   Resposta: 244 requisições, 5.9 MB transferidos no total.
+   244 requisições e 5.9 MB transferidos no total.
 
 ## RODADA 02 — O que vem depois
 
@@ -65,11 +65,11 @@ Font (tipografia) .... 4 requisicoes (255 kB)
 
 1. Ninguém clicou nesses arquivos. Quem, então, pediu por eles?
 
-   Resposta: O HTML inicial (Rodada 01) é a única requisição que eu mesmo pedi, ao digitar o endereço. Todo o resto (CSS, JS, imagens, fontes) foi pedido automaticamente pelo próprio navegador, que lê o HTML e, ao encontrar tags como `<img>`, `<link>` e `<script>`, sai buscando cada arquivo referenciado sem eu precisar clicar em nada.
+   O html que eu pedi (a primeira requisição) tem tags de img, link e script apontando pra esses arquivos. O navegador lê isso sozinho e já sai baixando tudo, sem eu precisar clicar em nada.
 
 2. Há requisições para endereços de OUTROS domínios? Anote um deles e arrisque um palpite sobre o que seja.
 
-   Resposta: Sim, o domínio s2-home-globo.glbimg.com. Palpite: é um subdomínio/CDN separado que a Globo usa só pra guardar e servir imagens (por exemplo, vi uma foto do Flávio e do Lula vindo desse endereço).
+   Sim, o domínio s2-home-globo.glbimg.com. Acho que é tipo um servidor separado só pra guardar imagem da globo, tipo vi uma foto do Flávio e do Lula vindo de lá.
 
 ## RODADA 03 — Anatomia de um pedido e de uma resposta
 
@@ -94,15 +94,15 @@ Server: nginx
 
 1. Na requisição que você escolheu, qual o valor de Content-Type?
 
-   Resposta: text/html; charset=UTF-8.
+   text/html; charset=UTF-8.
 
 2. Qual servidor respondeu (header Server)? E o status code?
 
-   Resposta: O header Server não foi informado — a Globo esconde isso de propósito, por segurança, pra não revelar qual tecnologia usa no servidor. Em vez disso, aparece um header "Via: 2.1 KubeCache", que indica que tem um cache/proxy no meio (baseado em Kubernetes). Status code: 200.
+   Não achei o Server, acho que a Globo esconde de propósito. Mas tem um "Via: 2.1 KubeCache". Status 200.
 
 3. Compare o Content-Type de um arquivo CSS com o de uma imagem. O que muda?
 
-   Resposta: CSS veio como "text/css; charset=utf-8" e a imagem como "image/webp". O tipo geral muda de text/ pra image/, e isso diz pro navegador como tratar cada arquivo: no CSS, ele lê o conteúdo como texto e interpreta os comandos de estilo para aplicar no site; na imagem, ele não interpreta comando nenhum, só decodifica e replica a imagem na tela.
+   CSS veio como text/css e a imagem como image/webp. No CSS o navegador lê o comando pra poder colocar no site, e a imagem ele só replica na tela.
 
 ## RODADA 04 — Quando alguma coisa dá errado
 
@@ -122,15 +122,15 @@ Compare com a rodada 01:
 
 1. O servidor está no ar ou fora do ar? Como você sabe?
 
-   Resposta: Está no ar e respondendo normalmente. Eu sei porque ele devolveu uma resposta completa (status 404, com uma página de erro cheia de imagens) — ele só não encontrou a página que eu pedi, porque ela não existe.
+   Tá respondendo, só que não encontrou a requisição do navegador porque a página não existe.
 
 2. O erro foi de quem pediu ou de quem respondeu? Justifique.
 
-   Resposta: Foi de quem pediu (eu). O status 404 está na família 4xx, que indica erro do lado do cliente — eu pedi algo que não existe no servidor.
+   Foi de quem pediu. É família 4xx, pedi algo que não existe.
 
 3. Se o status fosse 500 em vez do que você anotou, a conclusão seria a mesma? Por quê?
 
-   Resposta: Não, mudaria. O 4xx é erro de quem pediu (o navegador/cliente pediu algo errado), enquanto o 5xx é erro do servidor — ou seja, se fosse 500, a culpa passaria a ser do servidor, que quebrou tentando responder ao meu pedido.
+   Mudaria, porque 4xx é culpa do navegador (de quem pede) e 5xx é do servidor.
 
 ## RODADA 05 — Quem faz o quê na página
 
@@ -150,12 +150,12 @@ textos e links             continuam aparecendo normalmente
 
 1. O texto e as imagens desapareceram junto com o CSS? O que isso diz sobre onde o CONTEÚDO mora?
 
-   Resposta: Não, o texto e as imagens continuaram aparecendo, só sem estilo. Isso mostra que o CONTEÚDO mora no HTML (o esqueleto), não no CSS — o CSS só cuida da aparência por cima do que já existe.
+   Não, continuaram aparecendo, só sem estilo. O conteúdo mora no HTML, não no CSS.
 
 2. Descreva em uma frase o papel do CSS, com base apenas no que você acabou de ver.
 
-   Resposta: O CSS é a "pele" do site — ele cuida de cores, imagens de fundo, layout e fontes, dando aparência ao esqueleto que o HTML já montou.
+   O CSS é tipo a pele do site, cuida da aparência (cor, fonte, layout).
 
 3. Ainda restou algum comportamento (menu que abre, botão que responde)? De qual das três tecnologias ele vem?
 
-   Resposta: Sim, os links e botões continuaram respondendo ao clique mesmo sem CSS. Esse comportamento (a parte que se move e reage) vem do JavaScript.
+   Sim, os links e botões continuaram respondendo ao clique. Isso vem do JS.
