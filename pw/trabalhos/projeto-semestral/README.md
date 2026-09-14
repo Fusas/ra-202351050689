@@ -1,11 +1,11 @@
-# Fusa's Store — Vitrine de Acessórios Gamer
+# Fusas's Store — Vitrine de Acessórios Gamer
 
 - **Aluno:** Arthur de Souza Monteiro
 - **Curso/Turma:** pw-2026.2
 
 ## Descrição
 
-Fusa's Store é o site de vitrine de uma loja local de acessórios e periféricos gamer (teclados, mouses, headsets, cadeiras, mousepads). O site mostra o catálogo de produtos em cards, permite filtrar por categoria, ver o detalhe de um produto e enviar um pedido de orçamento/contato pelo formulário — tudo isso sem precisar ir até a loja ou chamar no WhatsApp antes.
+Fusas's Store é o site de vitrine de uma loja local de acessórios e periféricos gamer (teclados, mouses, headsets, cadeiras, mousepads). O site mostra o catálogo de produtos em cards, permite filtrar por categoria, ver o detalhe de um produto e enviar um pedido de orçamento/contato pelo formulário — tudo isso sem precisar ir até a loja ou chamar no WhatsApp antes.
 
 ## Pré-requisitos
 

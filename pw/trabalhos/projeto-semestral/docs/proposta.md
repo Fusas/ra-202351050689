@@ -5,7 +5,7 @@
 
 ## 1. Tema e problema
 
-Fusa's Store é uma vitrine online para uma loja local de acessórios e periféricos gamer (teclados, mouses, headsets, cadeiras, mousepads). Hoje esse tipo de loja pequena normalmente só vende presencialmente ou por WhatsApp, sem um catálogo organizado. O site resolve isso mostrando os produtos disponíveis, com preços e características, e permitindo que o cliente entre em contato para comprar ou pedir um orçamento.
+Fusas's Store é uma vitrine online para uma loja local de acessórios e periféricos gamer (teclados, mouses, headsets, cadeiras, mousepads). Hoje esse tipo de loja pequena normalmente só vende presencialmente ou por WhatsApp, sem um catálogo organizado. O site resolve isso mostrando os produtos disponíveis, com preços e características, e permitindo que o cliente entre em contato para comprar ou pedir um orçamento.
 
 ## 2. Público-alvo
 
