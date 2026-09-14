@@ -59,20 +59,26 @@ campo   type=password          name=password           (Riot Games - senha)
 Um label corretamente associado faz o clique no texto focar o campo. É um teste de 1 segundo que revela se a marcação está certa:
 
 ```text
-formulario real          clicar no rotulo focou o campo? ( )sim ( )nao
+formulario real (gov.br)  clicar no rotulo focou o campo? ( )sim (x)nao
 
 codigo do que FUNCIONA:
-  <label for="__________">Nome</label>
-  <input id="__________">
+  <label for="accountId">CPF</label>
+  <input id="accountId">
 ```
 
 **Sua análise:**
 
 1. Qual atributo do label precisa bater com qual atributo do input?
 
+   O `for` do label precisa ter o mesmo valor do `id` do input.
+
 2. Além do clique, quem mais depende dessa associação para saber o nome do campo?
 
+   O leitor de tela também depende disso. É assim que ele sabe falar "campo Senha" quando chega naquele input, em vez de só ler "campo de texto vazio".
+
 3. Se não estava associado, o que exatamente estava faltando?
+
+   Faltava um label de verdade ligado ao campo (com for apontando pro id). O que existia era só o placeholder, que não é a mesma coisa, some ao digitar e não é confiável pra leitor de tela.
 
 ## RODADA 03 — O teclado que o celular abre
 
