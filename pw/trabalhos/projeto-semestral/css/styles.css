@@ -1,5 +1,5 @@
 /*
-  GearUp — Vitrine de Acessórios Gamer
+  Fusa's Store — Vitrine de Acessórios Gamer
   CSS base: reset + design tokens (custom properties)
 */
 
@@ -149,7 +149,7 @@ a {
   margin: 0 auto var(--espaco-grande);
 }
 
-/* ===== Destaques (lista "Por que comprar na GearUp") ===== */
+/* ===== Destaques (lista "Por que comprar na Fusa's Store") ===== */
 .destaques {
   padding-block: var(--espaco-grande);
 }
