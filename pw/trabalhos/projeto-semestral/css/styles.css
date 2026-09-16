@@ -264,6 +264,71 @@ section[id] h2 {
   font-size: 0.85rem;
 }
 
+.produto-card a {
+  display: inline-block;
+  margin-top: var(--espaco-pequeno);
+  font-size: 0.9rem;
+}
+
+/* ===== Página Detalhe do produto ===== */
+
+.link-voltar {
+  display: inline-block;
+  margin-block: var(--espaco-medio);
+  text-decoration: none;
+}
+
+.produto-detalhe {
+  padding-block: var(--espaco-medio) var(--espaco-grande);
+}
+
+.produto-detalhe h1 {
+  font-size: var(--tamanho-titulo-grande);
+  margin-bottom: var(--espaco-pequeno);
+}
+
+.produto-detalhe .produto-preco {
+  font-size: var(--tamanho-titulo-medio);
+  color: var(--cor-primaria-clara);
+  font-weight: 700;
+  margin-bottom: var(--espaco-medio);
+}
+
+/* Grid: cada par termo/valor (dt/dd) vira uma linha de 2 colunas. Grid
+   de novo, porque termo e valor precisam ficar alinhados em colunas —
+   é outro caso onde Grid encaixa melhor que Flexbox. */
+.produto-specs {
+  display: grid;
+  gap: var(--espaco-pequeno) var(--espaco-medio);
+  background: var(--cor-fundo-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  padding: var(--espaco-medio);
+  margin-bottom: var(--espaco-grande);
+}
+
+.produto-specs > div {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: var(--espaco-medio);
+}
+
+.produto-specs dt {
+  color: var(--cor-texto-suave);
+  font-weight: 700;
+}
+
+.produto-detalhe h2 {
+  font-size: var(--tamanho-titulo-medio);
+  margin-bottom: var(--espaco-pequeno);
+}
+
+.produto-detalhe > p {
+  color: var(--cor-texto-suave);
+  max-width: 70ch;
+  margin-bottom: var(--espaco-grande);
+}
+
 /* ===== Rodapé ===== */
 .rodape {
   border-top: 1px solid var(--cor-borda);
