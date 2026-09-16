@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato — Fusas's Store</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="cabecalho">
+    <div class="container cabecalho__conteudo">
+      <p class="logo">Fusas's Store</p>
+      <nav>
+        <a href="index.html">Início</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="contato.html" aria-current="page">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <h1>Contato</h1>
+    <p>
+      Viu um produto que gostou? Preenche o formulário abaixo que a gente
+      entra em contato pra fechar o pedido ou tirar dúvidas.
+    </p>
+
+    <form class="formulario" action="#" method="post">
+
+      <div class="campo">
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" name="nome" required minlength="3">
+      </div>
+
+      <div class="campo">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="campo">
+        <label for="telefone">Telefone</label>
+        <input
+          type="tel"
+          id="telefone"
+          name="telefone"
+          required
+          placeholder="(11) 91234-5678"
+          pattern="\(\d{2}\)\s?\d{4,5}-?\d{4}"
+          title="Formato: (11) 91234-5678"
+        >
+      </div>
+
+      <div class="campo">
+        <label for="produto">Produto de interesse</label>
+        <select id="produto" name="produto" required>
+          <option value="">Selecione uma categoria</option>
+          <option value="teclado">Teclado</option>
+          <option value="mouse">Mouse</option>
+          <option value="headset">Headset</option>
+          <option value="cadeira">Cadeira</option>
+          <option value="mousepad">Mousepad</option>
+        </select>
+      </div>
+
+      <fieldset class="campo">
+        <legend>Forma de contato preferida</legend>
+
+        <div class="opcao">
+          <input type="radio" id="contato-whatsapp" name="contato-preferido" value="whatsapp" required>
+          <label for="contato-whatsapp">WhatsApp</label>
+        </div>
+
+        <div class="opcao">
+          <input type="radio" id="contato-email" name="contato-preferido" value="email">
+          <label for="contato-email">E-mail</label>
+        </div>
+
+        <div class="opcao">
+          <input type="radio" id="contato-telefone" name="contato-preferido" value="telefone">
+          <label for="contato-telefone">Ligação</label>
+        </div>
+      </fieldset>
+
+      <div class="campo">
+        <label for="mensagem">Mensagem (opcional)</label>
+        <textarea id="mensagem" name="mensagem" rows="4"></textarea>
+      </div>
+
+      <button type="submit" class="botao">Enviar pedido</button>
+
+    </form>
+
+  </main>
+
+  <footer class="rodape">
+    <div class="container">
+      <p>Fusas's Store Acessórios Gamer · Rua dos Periféricos, 123 · contato@fusasstore.example</p>
+    </div>
+  </footer>
+
+</body>
+</html>

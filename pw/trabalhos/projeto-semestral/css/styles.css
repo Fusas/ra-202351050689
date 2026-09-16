@@ -329,6 +329,73 @@ section[id] h2 {
   margin-bottom: var(--espaco-grande);
 }
 
+/* ===== Página Contato (formulário) ===== */
+
+main.container h1 + p {
+  max-width: 60ch;
+}
+
+/* Flexbox em coluna: os campos do formulário ficam um embaixo do outro,
+   com espaço igual entre eles (gap), sem precisar de margin em cada um. */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-medio);
+  max-width: 480px;
+  margin-block: var(--espaco-grande);
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border: none;
+  padding: 0;
+}
+
+.campo label,
+.campo legend {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  color: var(--cor-texto);
+  background: var(--cor-fundo-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  padding: 0.6rem var(--espaco-pequeno);
+}
+
+.campo textarea {
+  resize: vertical;
+}
+
+/* Fieldset de forma de contato: as opções de rádio ficam em linha,
+   quebrando pra tela pequena (Flexbox de novo). */
+fieldset.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-pequeno);
+}
+
+fieldset.campo > div.opcao {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.opcao label {
+  font-weight: 400;
+}
+
+.formulario button.botao {
+  align-self: flex-start;
+}
+
 /* ===== Rodapé ===== */
 .rodape {
   border-top: 1px solid var(--cor-borda);
