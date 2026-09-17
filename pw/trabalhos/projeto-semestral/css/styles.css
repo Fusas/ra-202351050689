@@ -404,3 +404,58 @@ fieldset.campo > div.opcao {
   color: var(--cor-texto-suave);
   font-size: 0.9rem;
 }
+
+/* =========================================================
+   RESPONSIVIDADE (Aula 05) — mobile-first
+   =========================================================
+   Tudo que veio ANTES daqui é o layout de CELULAR (a tela mais
+   estreita). As media queries abaixo usam min-width: elas só ENTRAM
+   em telas a partir de um certo tamanho, adicionando/ajustando estilo
+   por cima do que já existe — nunca o contrário. É a estratégia
+   "mobile-first" que vimos na Rodada 02 da Aula 05.
+   ========================================================= */
+
+/* Breakpoint 1: tablets e celulares grandes (a partir de 600px) */
+@media (min-width: 600px) {
+  :root {
+    --tamanho-titulo-grande: 2.5rem;
+    --tamanho-titulo-medio: 1.6rem;
+  }
+
+  .cabecalho__conteudo {
+    padding-block: 1.25rem;
+  }
+
+  /* Com mais espaço, os 3 cards de destaque cabem lado a lado sem
+     esticar demais (limita a 3 por linha em vez de deixar livre). */
+  .destaques__lista li {
+    flex: 1 1 30%;
+  }
+}
+
+/* Breakpoint 2: telas de desktop (a partir de 1000px) */
+@media (min-width: 1000px) {
+  :root {
+    --tamanho-titulo-grande: 3rem;
+  }
+
+  .hero {
+    padding-block: 3rem;
+  }
+
+  /* O formulário de contato vira 2 colunas — nome ao lado do e-mail,
+     telefone ao lado do produto. Campos que precisam da largura
+     inteira (marcados com .campo--largura-total, tipo o grupo de
+     rádio e a mensagem) ocupam as 2 colunas de novo. */
+  .formulario {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--espaco-medio) var(--espaco-grande);
+    max-width: 640px;
+  }
+
+  .campo--largura-total,
+  .formulario button.botao {
+    grid-column: 1 / -1;
+  }
+}
