@@ -38,7 +38,7 @@ Nenhum. É um site estático (HTML + CSS puro), não precisa instalar nada.
 - Lighthouse (categoria Acessibilidade): **100/100** nas 4 páginas.
 - Todo campo de formulário tem `<label for="">` associado ao `id` do campo correspondente.
 - Foco visível (`:focus-visible`) em links, botões e campos, para navegação por teclado.
-- Validador do W3C: recomendado rodar em https://validator.w3.org/nu/#file (não foi possível confirmar automaticamente a partir do ambiente de desenvolvimento usado).
+- Validador do W3C (https://validator.w3.org/nu/#file): **0 erros e 0 avisos** nas 4 páginas.
 
 ## Uso de IA
 
