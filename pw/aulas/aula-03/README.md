@@ -174,18 +174,24 @@ ferramenta extra que voce precisou instalar: nenhuma, só o DevTools do próprio
 Tabela serve para dados tabulares, com cabeçalhos que dizem o que cada coluna significa. Verifique se a que você achou está marcada corretamente:
 
 ```text
-usa <caption> (titulo da tabela)?     ( )sim ( )nao
-usa <thead> e <tbody>?                ( )sim ( )nao
-os cabecalhos sao <th> ou <td>?       ( )th  ( )td
-os <th> tem scope="col" ou "row"?     ( )sim ( )nao
+usa <caption> (titulo da tabela)?     ( )sim (x)nao
+usa <thead> e <tbody>?                (x)sim ( )nao
+os cabecalhos sao <th> ou <td>?       (x)th  ( )td
+os <th> tem scope="col" ou "row"?     ( )sim (x)nao
 
-site investigado: _________________________________
+site investigado: premierleague.com, tabela de classificação do campeonato
 ```
 
 **Sua análise:**
 
 1. Se os cabeçalhos são td, como um leitor de tela sabe que "R$ 250,00" pertence à coluna Valor?
 
+   O leitor de tela teria dificuldade pra saber que o valor pertence à coluna certa, porque td não indica que é um cabeçalho como o th.
+
 2. Para que serve o atributo scope?
 
+   O scope serve pra indicar se o cabeçalho vale pra uma coluna (scope="col") ou pra uma linha (scope="row"). Isso ajuda o leitor de tela a entender melhor a tabela — e foi exatamente o que faltou na tabela da Premier League que investiguei.
+
 3. Você encontrou alguma tabela usada para posicionar elementos na tela em vez de mostrar dados? Por que isso é um problema?
+
+   Sim, existem tabelas usadas só pra organizar elementos na tela, em vez de mostrar dados. Isso é um problema porque pode dificultar a navegação de quem usa leitor de tela e deixar o código menos organizado.
