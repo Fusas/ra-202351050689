@@ -146,20 +146,26 @@ agora digite "batata" num campo type="email" e envie:
 Você acabou de remover a proteção do formulário sem instalar nada, em 3 segundos, só com o navegador. Registre o resultado:
 
 ```text
-antes de apagar o required, o envio vazio era: ( )bloqueado ( )permitido
-depois de apagar o required, o envio vazio foi: ( )bloqueado ( )permitido
+antes de apagar o required, o envio vazio era: (x)bloqueado ( )permitido
+depois de apagar o required, o envio vazio foi: ( )bloqueado (x)permitido
 
-tempo que você levou para fazer isso: ______ segundos
-ferramenta extra que voce precisou instalar: _______________
+tempo que você levou para fazer isso: uns 10 segundos
+ferramenta extra que voce precisou instalar: nenhuma, só o DevTools do próprio navegador
 ```
 
 **Sua análise:**
 
 1. Se qualquer pessoa faz isso em 3 segundos, a validação do HTML serve para proteger o SISTEMA ou para ajudar o USUÁRIO?
 
+   A validação do HTML serve mais pra ajudar o usuário a preencher o formulário corretamente, não pra proteger o sistema.
+
 2. Onde, então, a validação precisa acontecer de novo obrigatoriamente?
 
+   A validação precisa acontecer de novo no servidor, porque é lá que os dados são recebidos e processados.
+
 3. Escreva em uma frase o que você diria a um colega que afirma "meu formulário está seguro, tem required em tudo".
+
+   Só colocar required não deixa o formulário seguro, porque qualquer pessoa pode burlar isso pelo DevTools, então precisa validar os dados no servidor também.
 
 ## RODADA 06 — A tabela é de dados ou de layout?
 
