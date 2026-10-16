@@ -1,0 +1,16 @@
+body {
+  font-family: sans-serif;
+  padding: 24px;
+}
+
+.titulo {
+  color: rebeccapurple;
+}
+
+.cartao {
+  border: 2px solid rebeccapurple;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  max-width: 250px;
+}
