@@ -87,20 +87,26 @@ codigo do que FUNCIONA:
 O atributo type muda o teclado que aparece no celular. Teste cada um e descreva o que apareceu:
 
 ```text
-type="text"      teclado: _______________________________
-type="email"     teclado: _______________________________
-type="tel"       teclado: _______________________________
-type="number"    teclado: _______________________________
-type="date"      controle: _____________________________
+type="text"      teclado: normal, com letras e números
+type="email"     teclado: normal, mas com @ e . mais fáceis de achar
+type="tel"       teclado: só números
+type="number"    teclado: numérico
+type="date"      controle: calendário pra escolher dia, mês e ano
 ```
 
 **Sua análise:**
 
 1. Qual type você usaria para CEP? E para um valor em reais? Justifique.
 
+   Pra CEP eu usaria type="text", porque pode começar com zero. Pra valor em reais, usaria type="number", porque é um valor numérico.
+
 2. Um campo de telefone com type="text" funciona. Então por que usar type="tel"?
 
+   Porque aparece um teclado numérico no celular, facilitando na hora de digitar o telefone.
+
 3. O type="date" mostrou um calendário? Quem desenhou esse calendário: você ou o navegador?
+
+   Foi o próprio navegador que mostrou o calendário, porque o type="date" já vem com essa função pronta. Não precisei programar nada.
 
 ## RODADA 04 — A validação que vem de graça
 
