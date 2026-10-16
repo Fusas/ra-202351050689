@@ -116,22 +116,28 @@ Antes de qualquer JavaScript, o navegador já barra o envio. Anote a mensagem EX
 
 ```text
 mensagem exibida pelo navegador:
-  "_______________________________________________"
+  "Preencha este campo."
 
-campo que ele apontou primeiro: ____________________
-atributo no HTML que causou isso: __________________
+campo que ele apontou primeiro: o primeiro campo obrigatório que estava vazio
+atributo no HTML que causou isso: required
 
 agora digite "batata" num campo type="email" e envie:
-  o que aconteceu? ________________________________
+  o que aconteceu? o navegador não deixou enviar, porque o texto não tem formato válido de e-mail
 ```
 
 **Sua análise:**
 
 1. Você escreveu alguma linha de JavaScript para isso funcionar?
 
+   Não, não precisei escrever nenhum JavaScript, o próprio navegador fez isso.
+
 2. A mensagem apareceu em português. Quem escolheu esse idioma?
 
+   Foi o navegador que escolheu o idioma da mensagem, de acordo com o idioma configurado nele.
+
 3. Qual atributo você usaria para exigir no mínimo 3 caracteres num campo de nome?
+
+   Eu usaria minlength="3", pra exigir pelo menos 3 caracteres no campo de nome.
 
 ## RODADA 05 — Burlando a validação (a rodada que importa)
 
