@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratório de JavaScript — Aula 11</title>
+
+<!--
+  ============================================================================
+  MATERIAL DE APOIO — AULA 11 (JavaScript moderno)
+  Programação Web — Newton Paiva
+  ============================================================================
+
+  PARA QUE SERVE
+  Esta página não ensina nada por si. Ela existe para:
+    1. dar à turma um conjunto de dados pronto (a constante global PRODUTOS,
+       10 objetos), para ninguém gastar tempo digitando dados no console;
+    2. projetar a comparação "antes e depois" da fase Engajar;
+    3. servir de base às 6 rodadas do handout, todas executadas no console.
+
+  COMO USAR
+  Abrir no navegador (Live Server ou duplo clique) e abrir o console (F12).
+  Digitar PRODUTOS e conferir que a tabela aparece. Se aparecer "PRODUTOS is
+  not defined", a página não terminou de carregar ou o console está apontando
+  para outro contexto (verifique o seletor de contexto no topo do console).
+
+  ---------------------------------------------------------------------------
+  GABARITO DAS PREVISÕES DO ENGAJAR
+  ---------------------------------------------------------------------------
+  1) 0.1 + 0.2 === 0.3          →  false
+     0.1 + 0.2                  →  0.30000000000000004
+     Por quê: números são guardados em base 2 e 0,1 não tem representação
+     exata nessa base — assim como 1/3 não tem em base 10. Responder em uma
+     frase e seguir: ponto flutuante não é o assunto da aula.
+
+  2) "5" + 3                    →  "53"   (com + o número vira texto)
+     "5" - 3                    →  2      (com - o texto vira número)
+     Por quê: + é sobrecarregado (soma OU concatenação); os outros operadores
+     aritméticos só existem para números, então convertem o texto.
+
+  3) const t = [1, 2]; t.push(3)  →  NÃO dá erro. t passa a ser [1, 2, 3].
+     Por quê: const congela o VÍNCULO entre o nome e o valor, não o conteúdo
+     do objeto apontado. t = [] daria erro; t.push(3) não.
+     Esta é a pergunta que a maioria erra, e é a mais útil das três.
+
+  ---------------------------------------------------------------------------
+  RESPOSTAS DAS RODADAS DO HANDOUT (resumo para o professor)
+  ---------------------------------------------------------------------------
+  R1  const a=1;a=2 → TypeError. let b=1;b=2 → ok. const t=[1,2];t.push(3) →
+      [1,2,3]. { var x } vaza para fora do bloco; { let y } não (ReferenceError).
+  R2  typeof: "number", "string", "boolean", "object" (array é object — usar
+      Array.isArray), "undefined". '10'==10 → true; '10'===10 → false;
+      0==false → true; 0===false → false.
+  R3  map devolve SEMPRE array do mesmo tamanho (10). Com chaves e sem return
+      → [undefined × 10]. PRODUTOS não muda: map não altera o original.
+  R4  filter('perifericos') → 4 itens (mouse, teclado, headset, webcam).
+      filter(preco<100) → 4 itens (mouse 89.9, cabo 39.9, hub 79.9, mousepad 49).
+      find(id===3) → um OBJETO. find inexistente → undefined.
+      filter inexistente → [] (array vazio, não undefined).
+  R5  Os dois caminhos dão 37071 (soma de preco × quantidade dos 10 itens).
+      Sem o valor inicial 0, o primeiro ITEM (um objeto) é usado como
+      acumulador: objeto + número vira texto, e a saída é a string
+      "[object Object]349229.9..." — não um número. Vale projetar: o erro não
+      é uma exceção, é um resultado silenciosamente errado, que é pior.
+  R6  { ...item } é cópia RASA: alterar promo.preco NÃO muda item.preco.
+      Mas lista2 = PRODUTOS é a MESMA referência: pop() em lista2 tira o item
+      de PRODUTOS (length vira 9). Cópia real: [...PRODUTOS].
+      ATENÇÃO: se a turma rodar o pop(), PRODUTOS fica com 9 itens até
+      recarregar a página (F5). Avise: "recarregue antes da próxima rodada".
+  ============================================================================
+-->
+
+<style>
+  :root {
+    --navy: #1f3864;
+    --blue: #2e75b6;
+    --light: #eef3fa;
+    --border: #ccd6e4;
+    --gray: #555;
+    --code-bg: #16233d;
+    --code-fg: #e2e8f0;
+    --red: #c0392b;
+    --green: #27ae60;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    color: #1e293b;
+    background: #f5f7fa;
+    line-height: 1.55;
+  }
+  header {
+    background: var(--navy);
+    color: #fff;
+    padding: 28px 24px;
+  }
+  header h1 { margin: 0 0 6px; font-size: 1.7rem; }
+  header p { margin: 0; color: #b9cbe6; }
+  main { max-width: 68rem; margin: 0 auto; padding: 24px; }
+  section { margin-bottom: 40px; }
+  h2 {
+    color: var(--navy);
+    border-bottom: 3px solid var(--blue);
+    padding-bottom: 6px;
+    margin-top: 0;
+  }
+  .aviso {
+    background: var(--light);
+    border: 1px solid var(--blue);
+    border-left: 6px solid var(--blue);
+    padding: 14px 18px;
+    border-radius: 4px;
+  }
+  .aviso strong { color: var(--navy); }
+  .duas {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  pre {
+    margin: 0;
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .rotulo {
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: 4px 4px 0 0;
+    color: #fff;
+    display: block;
+  }
+  .antigo .rotulo { background: var(--red); }
+  .moderno .rotulo { background: var(--green); }
+  .antigo pre, .moderno pre { border-radius: 0 0 6px 6px; }
+  table { border-collapse: collapse; width: 100%; background: #fff; }
+  caption { text-align: left; color: var(--gray); padding-bottom: 8px; font-style: italic; }
+  th, td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; }
+  th { background: var(--navy); color: #fff; }
+  tbody tr:nth-child(even) { background: var(--light); }
+  code.inline {
+    background: #e6ecf5;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: Consolas, monospace;
+    font-size: 0.9em;
+  }
+  ol.rodadas { padding-left: 22px; }
+  ol.rodadas li { margin-bottom: 8px; }
+  footer { color: var(--gray); font-size: 0.85rem; padding: 20px 24px 40px; max-width: 68rem; margin: 0 auto; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Laboratório de JavaScript Moderno</h1>
+  <p>Aula 11 · Programação Web · abra o console com <strong>F12</strong> e comece pela palavra <code>PRODUTOS</code></p>
+</header>
+
+<main>
+
+  <section>
+    <div class="aviso">
+      <p><strong>Antes de qualquer coisa:</strong> abra o console (F12 → Console), digite
+      <code class="inline">PRODUTOS</code> e aperte Enter. Devem aparecer 10 objetos.
+      Tente também <code class="inline">console.table(PRODUTOS)</code>.</p>
+      <p style="margin-bottom:0"><strong>Se você alterar PRODUTOS</strong> (com <code class="inline">pop()</code>,
+      <code class="inline">push()</code> ou <code class="inline">sort()</code>), recarregue a página com
+      <strong>F5</strong> antes da rodada seguinte — senão os dados da próxima pergunta já não são os mesmos.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Antes e depois — o mesmo resultado, duas escritas</h2>
+    <p>Os dois trechos abaixo produzem <strong>exatamente</strong> a mesma lista de frases:
+    os produtos disponíveis com preço abaixo de R$ 200, formatados para leitura.
+    Nenhuma explicação de sintaxe agora — só uma pergunta:
+    <strong>qual dos dois você prefere depurar às 23h da véspera da entrega?</strong></p>
+
+    <div class="duas">
+      <div class="antigo">
+        <span class="rotulo">JavaScript de 2010 — 17 linhas</span>
+<pre>var resultado = [];
+
+for (var i = 0; i &lt; PRODUTOS.length; i++) {
+  var p = PRODUTOS[i];
+
+  if (p.disponivel == true) {
+    if (p.preco &lt; 200) {
+      var linha = p.nome
+                + " - R$ "
+                + p.preco.toFixed(2)
+                + " ("
+                + p.categoria
+                + ")";
+      resultado.push(linha);
+    }
+  }
+}
+
+console.log(resultado);</pre>
+      </div>
+
+      <div class="moderno">
+        <span class="rotulo">JavaScript moderno — 4 linhas</span>
+<pre>const resultado = PRODUTOS
+  .filter(p =&gt; p.disponivel &amp;&amp; p.preco &lt; 200)
+  .map(p =&gt; `${p.nome} - R$ ${p.preco.toFixed(2)} (${p.categoria})`);
+
+console.log(resultado);</pre>
+      </div>
+    </div>
+
+    <p style="margin-top:16px"><strong>Copie os dois no console</strong> e confira que a saída é
+    idêntica. Depois compare: quantas variáveis auxiliares cada um cria? Em qual dos dois é possível
+    ler a <em>intenção</em> sem executar mentalmente o código?</p>
+  </section>
+
+  <section>
+    <h2>Os dados desta aula</h2>
+    <table>
+      <caption>A constante <code class="inline">PRODUTOS</code> já está definida — não precisa digitar nada disso.</caption>
+      <thead>
+        <tr><th>id</th><th>nome</th><th>categoria</th><th>preço</th><th>qtd.</th><th>disponível</th></tr>
+      </thead>
+      <tbody id="tabela"><!-- preenchido pelo script, só para consulta visual --></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Roteiro das 6 rodadas</h2>
+    <p>As perguntas completas estão no seu handout impresso. Aqui fica só a ordem, para você não se perder:</p>
+    <ol class="rodadas">
+      <li><strong>const, let e var</strong> — o que cada um impede, e qual deles ignora as chaves <code class="inline">{ }</code></li>
+      <li><strong>Tipos e comparação</strong> — <code class="inline">typeof</code>, e por que <code class="inline">'10' == 10</code> é verdadeiro</li>
+      <li><strong>map</strong> — transformar a lista preservando o tamanho</li>
+      <li><strong>filter e find</strong> — selecionar: um devolve lista, o outro devolve item</li>
+      <li><strong>reduce</strong> — colapsar a lista em um único valor, pelos dois caminhos</li>
+      <li><strong>Destructuring e spread</strong> — extrair campos, copiar objetos e a armadilha da referência</li>
+    </ol>
+    <div class="aviso">
+      <p style="margin:0"><strong>A regra da fase:</strong> escreva a previsão no papel
+      <em>antes</em> de apertar Enter. Previsão errada não é erro — é o momento em que você
+      descobre que a sua ideia sobre a linguagem estava incompleta. Registre-a mesmo assim.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Material de apoio da Aula 11 — Programação Web · Centro Universitário Newton Paiva.
+  Os dados são fictícios e servem apenas de campo de experimentação.
+</footer>
+
+<script>
+  // ==========================================================================
+  // OS DADOS DA AULA
+  // Ficam em const global de propósito: a turma acessa PRODUTOS direto no
+  // console, sem digitar dados e sem import (módulos entram na aula 14).
+  // 10 itens, calibrados para as respostas do handout:
+  //   - 4 de 'perifericos'  (rodada 4)
+  //   - 4 com preco < 100   (rodada 4)
+  //   - 2 indisponíveis     (para o filter do 'antes e depois')
+  // ==========================================================================
+  const PRODUTOS = [
+    { id: 1,  nome: "Mouse óptico",        categoria: "perifericos", preco:  89.90, quantidade: 42, disponivel: true  },
+    { id: 2,  nome: "Teclado mecânico",    categoria: "perifericos", preco: 349.00, quantidade: 18, disponivel: true  },
+    { id: 3,  nome: "Monitor 24\"",        categoria: "monitores",   preco: 899.00, quantidade:  7, disponivel: true  },
+    { id: 4,  nome: "Headset com microfone", categoria: "perifericos", preco: 229.90, quantidade: 25, disponivel: true },
+    { id: 5,  nome: "Cabo HDMI 2 m",       categoria: "cabos",       preco:  39.90, quantidade: 90, disponivel: true  },
+    { id: 6,  nome: "SSD 480 GB",          categoria: "armazenamento", preco: 279.00, quantidade: 12, disponivel: true },
+    { id: 7,  nome: "Webcam Full HD",      categoria: "perifericos", preco: 199.00, quantidade:  0, disponivel: false },
+    { id: 8,  nome: "Hub USB 4 portas",    categoria: "cabos",       preco:  79.90, quantidade: 33, disponivel: true  },
+    { id: 9,  nome: "Monitor 27\" 144 Hz", categoria: "monitores",   preco: 1799.00, quantidade: 3, disponivel: true  },
+    { id: 10, nome: "Mousepad grande",     categoria: "acessorios",  preco:  49.00, quantidade:  0, disponivel: false },
+  ];
+
+  // Espelha a lista na tabela da página. É a ÚNICA manipulação de DOM aqui:
+  // o assunto é a aula 12, e por isso está isolada nesta função.
+  document.getElementById("tabela").innerHTML = PRODUTOS.map(function (p) {
+    return "<tr><td>" + p.id + "</td><td>" + p.nome + "</td><td>" + p.categoria
+      + "</td><td>R$ " + p.preco.toFixed(2) + "</td><td>" + p.quantidade
+      + "</td><td>" + (p.disponivel ? "sim" : "não") + "</td></tr>";
+  }).join("");
+
+  console.log(
+    "%cPRODUTOS está pronto: %c10 itens.%c  Digite PRODUTOS ou console.table(PRODUTOS) para começar.",
+    "color:#2e75b6;font-weight:bold", "color:#27ae60;font-weight:bold", "color:#555"
+  );
+</script>
+
+</body>
+</html>

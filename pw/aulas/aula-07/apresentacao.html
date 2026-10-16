@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>map, filter, find e reduce</title>
+<style>
+  :root {
+    --navy: #1f3864; --blue: #2e75b6; --light: #eef3fa; --border: #ccd6e4;
+    --code-bg: #16233d; --code-fg: #e2e8f0; --red: #c0392b; --green: #27ae60;
+    --amarelo: #f5b700; --texto: #1e293b; --fundo: #f5f7fa;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: var(--fundo); color: var(--texto); line-height: 1.5;
+    overflow: hidden;
+  }
+  .slide {
+    display: none; position: absolute; inset: 0 0 56px 0;
+    padding: 5vh 7vw; overflow-y: auto; flex-direction: column; justify-content: center;
+  }
+  .slide.ativo { display: flex; }
+  .slide.capa { background: var(--navy); color: #fff; }
+  .capa h1 { font-size: clamp(2rem, 6vw, 4rem); margin: 0 0 12px; }
+  .capa p { color: #b9cbe6; font-size: 1.2rem; margin: 4px 0; }
+  .etiqueta {
+    display: inline-block; font-size: .8rem; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 8px;
+  }
+  .capa .etiqueta { color: var(--amarelo); }
+  h2 { font-size: clamp(1.6rem, 4vw, 2.6rem); color: var(--navy); margin: 0 0 20px; }
+  .grande { font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 600; max-width: 40ch; }
+  p, li { font-size: clamp(1rem, 1.8vw, 1.3rem); }
+  pre {
+    background: var(--code-bg); color: var(--code-fg); padding: 16px 20px; border-radius: 8px;
+    font-family: Consolas, "Courier New", monospace; font-size: clamp(.85rem, 1.6vw, 1.15rem);
+    overflow-x: auto; margin: 0; white-space: pre-wrap;
+  }
+  code { font-family: Consolas, monospace; background: #e6ecf5; padding: 1px 6px; border-radius: 4px; }
+  pre code { background: none; padding: 0; }
+  .demo { margin-bottom: 14px; }
+  .demo .linha { display: flex; gap: 10px; align-items: stretch; }
+  .demo pre { flex: 1; }
+  .demo button {
+    background: var(--blue); color: #fff; border: 0; border-radius: 8px; padding: 0 18px;
+    font-size: 1rem; font-weight: 600; cursor: pointer;
+  }
+  .demo button:hover { background: var(--navy); }
+  .saida {
+    font-family: Consolas, monospace; font-size: clamp(.8rem, 1.5vw, 1.05rem);
+    background: #fff; border: 1px solid var(--border); border-left: 5px solid var(--green);
+    border-radius: 6px; padding: 8px 14px; margin-top: 6px; white-space: pre-wrap; display: none;
+  }
+  .saida.erro { border-left-color: var(--red); color: var(--red); }
+  .saida.mostrar { display: block; }
+  .cards { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .card {
+    background: #fff; border: 1px solid var(--border); border-top: 6px solid var(--blue);
+    border-radius: 8px; padding: 16px 18px;
+  }
+  .card h3 { margin: 0 0 6px; color: var(--navy); font-size: 1.2rem; }
+  .card p { margin: 0; font-size: 1rem; }
+  .card.sintoma { border-top-color: var(--amarelo); }
+  .card.causa { border-top-color: var(--red); }
+  .card.correcao { border-top-color: var(--green); }
+  a.card { text-decoration: none; color: inherit; }
+  a.card:hover { border-color: var(--blue); }
+  .resposta { display: none; margin-top: 14px; }
+  .resposta.mostrar { display: block; }
+  table { border-collapse: collapse; width: 100%; background: #fff; font-size: clamp(.9rem, 1.6vw, 1.15rem); }
+  th, td { border: 1px solid var(--border); padding: 10px 12px; text-align: left; }
+  th { background: var(--navy); color: #fff; }
+  nav {
+    position: fixed; left: 0; right: 0; bottom: 0; height: 56px; background: #fff;
+    border-top: 1px solid var(--border); display: flex; align-items: center; gap: 10px; padding: 0 16px;
+  }
+  nav button {
+    background: var(--light); border: 1px solid var(--border); border-radius: 6px;
+    padding: 8px 14px; font-size: 1rem; cursor: pointer; color: var(--navy);
+  }
+  nav .info { margin-left: auto; color: #555; font-size: .9rem; }
+  nav select { padding: 6px; border-radius: 6px; border: 1px solid var(--border); font-size: .95rem; }
+</style>
+</head>
+<body>
+
+<div id="slides"></div>
+
+<nav>
+  <button id="ant" aria-label="Slide anterior">←</button>
+  <button id="prox" aria-label="Próximo slide">→</button>
+  <select id="pular" aria-label="Ir para a função">
+    <option value="0">Início</option>
+    <option value="map">map</option>
+    <option value="filter">filter</option>
+    <option value="find">find</option>
+    <option value="reduce">reduce</option>
+    <option value="resumo">Resumo</option>
+  </select>
+  <span class="info" id="info"></span>
+</nav>
+
+<script>
+  // Mesmos dados do laboratorio-js.html: as demos rodam aqui e também no console (F12).
+  const PRODUTOS = [
+    { id: 1,  nome: "Mouse óptico",        categoria: "perifericos", preco:  89.90, quantidade: 42, disponivel: true  },
+    { id: 2,  nome: "Teclado mecânico",    categoria: "perifericos", preco: 349.00, quantidade: 18, disponivel: true  },
+    { id: 3,  nome: "Monitor 24\"",        categoria: "monitores",   preco: 899.00, quantidade:  7, disponivel: true  },
+    { id: 4,  nome: "Headset com microfone", categoria: "perifericos", preco: 229.90, quantidade: 25, disponivel: true },
+    { id: 5,  nome: "Cabo HDMI 2 m",       categoria: "cabos",       preco:  39.90, quantidade: 90, disponivel: true  },
+    { id: 6,  nome: "SSD 480 GB",          categoria: "armazenamento", preco: 279.00, quantidade: 12, disponivel: true },
+    { id: 7,  nome: "Webcam Full HD",      categoria: "perifericos", preco: 199.00, quantidade:  0, disponivel: false },
+    { id: 8,  nome: "Hub USB 4 portas",    categoria: "cabos",       preco:  79.90, quantidade: 33, disponivel: true  },
+    { id: 9,  nome: "Monitor 27\" 144 Hz", categoria: "monitores",   preco: 1799.00, quantidade: 3, disponivel: true  },
+    { id: 10, nome: "Mousepad grande",     categoria: "acessorios",  preco:  49.00, quantidade:  0, disponivel: false },
+  ];
+
+  // Conteúdo de cada função, seguindo o roteiro de 6 passos do guia.
+  const FUNCOES = [
+    {
+      id: "map",
+      pergunta: "Como fica CADA item depois de transformado?",
+      entra: "10 itens", sai: "10 itens, sempre",
+      callback: "Recebe o item (p). Devolve o novo valor que vai ocupar o lugar dele.",
+      demos: [
+        "PRODUTOS.map(p => p.nome)",
+        "PRODUTOS.map(p => `${p.nome}: R$ ${p.preco.toFixed(2)}`)",
+        "PRODUTOS.map(p => ({ id: p.id, dobro: p.preco * 2 }))[0]"
+      ],
+      vazio: [
+        "[].map(p => p.nome)",
+        "PRODUTOS.map(p => p.preco < 100)"
+      ],
+      vazioTexto: "Lista vazia devolve lista vazia. E map NUNCA tira itens: com uma condição, ele devolve 10 true/false — isso não é filtrar.",
+      armadilha: "PRODUTOS.map(p => { p.nome })",
+      sintoma: "Lista do tamanho certo, cheia de undefined, sem erro.",
+      causa: "Chaves { } sem return: o valor é calculado e jogado fora.",
+      correcao: "PRODUTOS.map(p => p.nome)  ou  { return p.nome; }",
+      desafio: "Gere frases no formato \"Mouse óptico (42 un.)\" para todos os produtos.",
+      resposta: "PRODUTOS.map(p => `${p.nome} (${p.quantidade} un.)`)"
+    },
+    {
+      id: "filter",
+      pergunta: "Quais itens servem?",
+      entra: "10 itens", sai: "de 0 a 10 itens",
+      callback: "Recebe o item (p). Devolve verdadeiro (fica) ou falso (sai).",
+      demos: [
+        "PRODUTOS.filter(p => p.categoria === 'perifericos').length",
+        "PRODUTOS.filter(p => !p.disponivel).map(p => p.nome)",
+        "PRODUTOS.filter(p => p.quantidade).length"
+      ],
+      vazio: [
+        "PRODUTOS.filter(p => p.preco > 5000)",
+        "PRODUTOS.filter(p => p.preco > 5000).length"
+      ],
+      vazioTexto: "Nada serve → [] (array vazio), nunca undefined. Assim .length e .map continuam funcionando. E o callback só precisa ser truthy/falsy: quantidade 0 é falsy.",
+      armadilha: "PRODUTOS.filter(p => { p.preco < 100 })",
+      sintoma: "Lista vazia, sem erro nenhum, mesmo existindo produtos baratos.",
+      causa: "Sem return o callback devolve undefined, que é falsy: ninguém passa.",
+      correcao: "PRODUTOS.filter(p => p.preco < 100)",
+      desafio: "Quais produtos DISPONÍVEIS custam entre R$ 100 e R$ 300?",
+      resposta: "PRODUTOS.filter(p => p.disponivel && p.preco >= 100 && p.preco <= 300).map(p => p.nome)"
+    },
+    {
+      id: "find",
+      pergunta: "Qual é O item que procuro?",
+      entra: "10 itens", sai: "1 item (ou undefined)",
+      callback: "Recebe o item (p). Devolve verdadeiro no item certo: aí o find PARA.",
+      demos: [
+        "PRODUTOS.find(p => p.id === 3)",
+        "PRODUTOS.find(p => p.categoria === 'monitores').nome",
+        "PRODUTOS.filter(p => p.categoria === 'monitores').map(p => p.nome)"
+      ],
+      vazio: [
+        "PRODUTOS.find(p => p.id === 999)",
+        "PRODUTOS.find(p => p.id === '3')"
+      ],
+      vazioTexto: "Nada encontrado → undefined. Cuidado com o tipo: '3' (texto, vindo de formulário ou URL) não é === 3. Converta com Number().",
+      armadilha: "PRODUTOS.find(p => p.id === 999).nome",
+      sintoma: "TypeError: Cannot read properties of undefined (reading 'nome').",
+      causa: "find não achou, devolveu undefined, e lemos .nome de undefined.",
+      correcao: "PRODUTOS.find(p => p.id === 999)?.nome  ou  if (prod) { ... }",
+      desafio: "Mostre o preço do primeiro produto da categoria \"cabos\", sem quebrar se não existir.",
+      resposta: "PRODUTOS.find(p => p.categoria === 'cabos')?.preco"
+    },
+    {
+      id: "reduce",
+      pergunta: "Como a lista inteira vira UM valor?",
+      entra: "10 itens", sai: "1 valor (número, item, objeto...)",
+      callback: "Recebe o acumulador (acc) e o item (p). Devolve o novo acc da próxima volta.",
+      demos: [
+        "PRODUTOS.reduce((acc, p) => acc + p.preco * p.quantidade, 0)",
+        "PRODUTOS.reduce((maior, p) => p.preco > maior.preco ? p : maior).nome",
+        "PRODUTOS.reduce((acc, p) => { acc[p.categoria] = (acc[p.categoria] || 0) + 1; return acc; }, {})"
+      ],
+      vazio: [
+        "[].reduce((acc, p) => acc + p.preco)",
+        "[].reduce((acc, p) => acc + p.preco, 0)"
+      ],
+      vazioTexto: "Lista vazia sem valor inicial → TypeError. Com valor inicial → devolve o próprio valor inicial. Regra: sempre passe o valor inicial.",
+      armadilha: "PRODUTOS.reduce((acc, p) => acc + p.preco)",
+      sintoma: "Sai um texto \"[object Object]349899...\" no lugar do total — sem erro.",
+      causa: "Sem o 0, o 1º produto (objeto) vira o acc, e objeto + número vira string.",
+      correcao: "PRODUTOS.reduce((acc, p) => acc + p.preco, 0)",
+      desafio: "Quantas unidades em estoque existem só de periféricos?",
+      resposta: "PRODUTOS.reduce((acc, p) => p.categoria === 'perifericos' ? acc + p.quantidade : acc, 0)"
+    }
+  ];
+
+  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  function demo(codigo) {
+    return `<div class="demo"><div class="linha"><pre><code>${esc(codigo)}</code></pre>` +
+      `<button type="button" data-codigo="${esc(codigo).replace(/"/g, "&quot;")}">Rodar</button></div>` +
+      `<div class="saida"></div></div>`;
+  }
+
+  function slidesDaFuncao(f, n) {
+    const tag = `<span class="etiqueta">${f.id} · ${n} de 4</span>`;
+    return [
+      { ancora: f.id, html: `<section class="slide capa"><span class="etiqueta">Grupos ${n} e ${n + 4}</span>
+          <h1>${f.id}</h1><p class="grande" style="color:#fff">${f.pergunta}</p>
+          <p>Entra: ${f.entra} → Sai: ${f.sai}</p></section>` },
+      { html: `<section class="slide">${tag}<h2>1 · A pergunta que ${f.id} responde</h2>
+          <p class="grande">“${f.pergunta}”</p>
+          <div class="cards" style="margin-top:20px">
+            <div class="card"><h3>Entra</h3><p>${f.entra}</p></div>
+            <div class="card"><h3>Sai</h3><p>${f.sai}</p></div>
+            <div class="card"><h3>Altera PRODUTOS?</h3><p>Não. Devolve um resultado novo.</p></div>
+          </div></section>` },
+      { html: `<section class="slide">${tag}<h2>2 · O callback</h2>
+          <p class="grande">${f.callback}</p>
+          <pre style="margin-top:20px"><code>${esc(f.demos[0])}</code></pre>
+          <p>A função dentro dos parênteses é passada <strong>sem executar</strong>: ${f.id} é quem a chama, uma vez por item.</p></section>` },
+      { html: `<section class="slide">${tag}<h2>3 · Demonstração ao vivo</h2>${f.demos.map(demo).join("")}</section>` },
+      { html: `<section class="slide">${tag}<h2>4 · Quando nada serve ou a lista está vazia</h2>
+          ${f.vazio.map(demo).join("")}<p>${f.vazioTexto}</p></section>` },
+      { html: `<section class="slide">${tag}<h2>5 · A armadilha</h2>${demo(f.armadilha)}
+          <div class="cards" style="margin-top:12px">
+            <div class="card sintoma"><h3>Sintoma</h3><p>${esc(f.sintoma)}</p></div>
+            <div class="card causa"><h3>Causa</h3><p>${esc(f.causa)}</p></div>
+            <div class="card correcao"><h3>Correção</h3><p><code>${esc(f.correcao)}</code></p></div>
+          </div></section>` },
+      { html: `<section class="slide">${tag}<h2>6 · Desafio para a turma (2 min)</h2>
+          <p class="grande">${esc(f.desafio)}</p>
+          <p><button type="button" class="revelar" style="padding:10px 18px;font-size:1rem;cursor:pointer">Mostrar resposta</button></p>
+          <div class="resposta">${demo(f.resposta)}</div></section>` }
+    ];
+  }
+
+  const SLIDES = [
+    { html: `<section class="slide capa"><span class="etiqueta">Programação Web · JavaScript moderno</span>
+        <h1>map, filter, find e reduce</h1>
+        <p>Aula invertida · Arthur de Souza Monteiro · pw-2026.2</p>
+        <p style="margin-top:24px">Use ← → para passar os slides, ou escolha a função no menu abaixo.</p></section>` },
+    { html: `<section class="slide"><span class="etiqueta">Ficha 00 · base de tudo</span>
+        <h2>Callback: passar a função, não o resultado</h2>
+        ${demo("PRODUTOS.filter(p => p.preco < 100).length")}
+        ${demo("function ehBarato(p) { return p.preco < 100; }\nPRODUTOS.filter(ehBarato())")}
+        <div class="cards">
+          <div class="card"><h3>ehBarato</h3><p>Entrega a função; o filter chama ela para cada item.</p></div>
+          <div class="card causa"><h3>ehBarato()</h3><p>Executa na hora, sem produto: p é undefined → TypeError.</p></div>
+          <div class="card sintoma"><h3>p => { p.preco &lt; 100 }</h3><p>Com chaves precisa de return. Sem ele, devolve undefined.</p></div>
+        </div></section>` },
+    { html: `<section class="slide"><span class="etiqueta">Escolha a função do seu grupo</span><h2>Quatro perguntas, quatro funções</h2>
+        <div class="cards">${FUNCOES.map((f, i) =>
+          `<a class="card" href="#${f.id}"><h3>${f.id}</h3><p>${f.pergunta}</p><p style="color:#555;margin-top:6px">Grupos ${i + 1} e ${i + 5}</p></a>`).join("")}
+        </div></section>` },
+    ...FUNCOES.flatMap((f, i) => slidesDaFuncao(f, i + 1)),
+    { ancora: "resumo", html: `<section class="slide"><span class="etiqueta">Resumo</span><h2>Qual usar?</h2>
+        <table>
+          <thead><tr><th>Função</th><th>Pergunta</th><th>Devolve</th><th>Quando nada serve</th></tr></thead>
+          <tbody>
+            <tr><td><code>map</code></td><td>Como fica cada item?</td><td>array do mesmo tamanho</td><td>[] (só se a lista for vazia)</td></tr>
+            <tr><td><code>filter</code></td><td>Quais servem?</td><td>array de 0 a N itens</td><td>[]</td></tr>
+            <tr><td><code>find</code></td><td>Qual é o item?</td><td>1 item</td><td>undefined</td></tr>
+            <tr><td><code>reduce</code></td><td>Qual o total/resumo?</td><td>1 valor de qualquer tipo</td><td>valor inicial (ou TypeError sem ele)</td></tr>
+          </tbody>
+        </table>
+        ${demo("PRODUTOS.filter(p => p.disponivel && p.categoria === 'perifericos').map(p => p.nome)")}
+        </section>` }
+  ];
+
+  const container = document.getElementById("slides");
+  container.innerHTML = SLIDES.map(s => s.html).join("");
+  const elementos = [...container.querySelectorAll(".slide")];
+  const ancoras = {};
+  SLIDES.forEach((s, i) => { if (s.ancora) ancoras[s.ancora] = i; });
+
+  let atual = 0;
+  function mostrar(i) {
+    atual = Math.max(0, Math.min(elementos.length - 1, i));
+    elementos.forEach((el, j) => el.classList.toggle("ativo", j === atual));
+    document.getElementById("info").textContent = `${atual + 1} / ${elementos.length}`;
+  }
+
+  function formatar(v) {
+    if (v === undefined) return "undefined";
+    if (typeof v === "string") return JSON.stringify(v);
+    if (Array.isArray(v) && v.every(x => x === undefined)) return `[${v.map(() => "undefined").join(", ")}]`;
+    return JSON.stringify(v, null, 1).replace(/\n\s*/g, " ");
+  }
+
+  container.addEventListener("click", e => {
+    const botao = e.target.closest("button");
+    if (!botao) return;
+    if (botao.classList.contains("revelar")) {
+      botao.closest(".slide").querySelector(".resposta").classList.add("mostrar");
+      return;
+    }
+    const saida = botao.closest(".demo").querySelector(".saida");
+    try {
+      // Roda o código do slide como se fosse digitado no console.
+      const resultado = new Function("PRODUTOS", `"use strict"; return eval(${JSON.stringify(botao.dataset.codigo.replace(/&quot;/g, '"'))});`)(PRODUTOS);
+      saida.textContent = "→ " + formatar(resultado);
+      saida.classList.remove("erro");
+    } catch (erro) {
+      saida.textContent = `✖ ${erro.name}: ${erro.message}`;
+      saida.classList.add("erro");
+    }
+    saida.classList.add("mostrar");
+  });
+
+  document.getElementById("ant").addEventListener("click", () => mostrar(atual - 1));
+  document.getElementById("prox").addEventListener("click", () => mostrar(atual + 1));
+  document.getElementById("pular").addEventListener("change", e => {
+    const v = e.target.value;
+    mostrar(v in ancoras ? ancoras[v] : Number(v));
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") mostrar(atual + 1);
+    if (e.key === "ArrowLeft" || e.key === "PageUp") mostrar(atual - 1);
+  });
+  window.addEventListener("hashchange", () => {
+    const a = location.hash.slice(1);
+    if (a in ancoras) mostrar(ancoras[a]);
+  });
+
+  mostrar(ancoras[location.hash.slice(1)] ?? 0);
+</script>
+</body>
+</html>
