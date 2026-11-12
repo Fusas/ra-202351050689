@@ -39,14 +39,29 @@
 
   /* outros */
   --raio-borda: 8px;
+  --cor-botao-texto: #fff;
 }
 
+/* Esqueleto da página em Grid: cabeçalho e rodapé do tamanho do seu
+   conteúdo, o main ocupa o resto (1fr) — e empurra o rodapé pro fim da
+   tela mesmo em páginas com pouco conteúdo. */
 body {
   font-family: var(--fonte-base);
   font-size: var(--tamanho-texto);
   line-height: 1.6;
   color: var(--cor-texto);
   background: var(--cor-fundo);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "cabecalho"
+    "conteudo"
+    "rodape";
+  min-height: 100vh;
+}
+
+main {
+  grid-area: conteudo;
 }
 
 /* Foco visível para quem navega pelo teclado (Tab) — importante pra
@@ -77,7 +92,7 @@ a {
 .botao {
   display: inline-block;
   background: var(--cor-primaria);
-  color: #fff;
+  color: var(--cor-botao-texto);
   text-decoration: none;
   padding: var(--espaco-pequeno) var(--espaco-grande);
   border-radius: var(--raio-borda);
@@ -94,6 +109,7 @@ a {
 /* Flexbox: o nome da loja fica de um lado e o menu do outro, com espaço
    entre os dois — é exatamente pra isso que o Flexbox existe. */
 .cabecalho {
+  grid-area: cabecalho;
   background: var(--cor-fundo-card);
   border-bottom: 1px solid var(--cor-borda);
 }
@@ -231,7 +247,7 @@ section[id] h2 {
    a gente pensa em LINHAS E COLUNAS ao mesmo tempo, não só numa direção. */
 .grade-produtos {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--espaco-medio);
 }
 
@@ -398,6 +414,7 @@ fieldset.campo > div.opcao {
 
 /* ===== Rodapé ===== */
 .rodape {
+  grid-area: rodape;
   border-top: 1px solid var(--cor-borda);
   padding-block: var(--espaco-medio);
   text-align: center;
