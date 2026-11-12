@@ -3,9 +3,7 @@ function ProdutoCard({ produto }) {
     <article className="produto-card">
       <h3>{produto.nome}</h3>
       <p className="produto-marca">{produto.marca}</p>
-      <p className="produto-preco">
-        R$ {produto.preco.toFixed(2).replace(".", ",")}
-      </p>
+      <p className="produto-preco">{produto.preco}</p>
       <p className="produto-compat">Compatível com: {produto.compatibilidade}</p>
     </article>
   );

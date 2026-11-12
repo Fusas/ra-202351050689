@@ -4,7 +4,7 @@ const produtos = [
     nome: "Teclado Mecânico RGB Vortex X1",
     categoria: "Teclado",
     marca: "VortexTech",
-    preco: 349.9,
+    preco: "R$ 349,90",
     compatibilidade: "PC",
   },
   {
@@ -12,7 +12,7 @@ const produtos = [
     nome: "Teclado Slim ChromaLite",
     categoria: "Teclado",
     marca: "NeoGear",
-    preco: 189.9,
+    preco: "R$ 189,90",
     compatibilidade: "PC e Console",
   },
   {
@@ -20,7 +20,7 @@ const produtos = [
     nome: "Mouse Óptico Raptor 3200",
     categoria: "Mouse",
     marca: "VortexTech",
-    preco: 129.9,
+    preco: "R$ 129,90",
     compatibilidade: "PC",
   },
   {
@@ -28,7 +28,7 @@ const produtos = [
     nome: "Mouse Wireless ProAim",
     categoria: "Mouse",
     marca: "NeoGear",
-    preco: 159.9,
+    preco: "R$ 159,90",
     compatibilidade: "PC",
   },
   {
@@ -36,7 +36,7 @@ const produtos = [
     nome: "Headset Surround Titan 7.1",
     categoria: "Headset",
     marca: "VortexTech",
-    preco: 279.9,
+    preco: "R$ 279,90",
     compatibilidade: "PC e Console",
   },
   {
@@ -44,7 +44,7 @@ const produtos = [
     nome: "Headset Bluetooth SkyWave",
     categoria: "Headset",
     marca: "NeoGear",
-    preco: 219.9,
+    preco: "R$ 219,90",
     compatibilidade: "PC, Console e Mobile",
   },
   {
@@ -52,7 +52,7 @@ const produtos = [
     nome: "Cadeira Gamer Apex Comfort",
     categoria: "Cadeira",
     marca: "ApexSeating",
-    preco: 899.9,
+    preco: "R$ 899,90",
     compatibilidade: "Universal",
   },
   {
@@ -60,7 +60,7 @@ const produtos = [
     nome: "Mousepad Extendido StormDesk",
     categoria: "Mousepad",
     marca: "NeoGear",
-    preco: 59.9,
+    preco: "R$ 59,90",
     compatibilidade: "Universal",
   },
 ];
