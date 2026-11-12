@@ -1,0 +1,190 @@
+/*
+  Fusas's Store — Vitrine de Acessórios Gamer (Fase 2)
+  Design tokens e estilos gerais trazidos da Fase 1 (pw/trabalhos/projeto-semestral)
+*/
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* cores */
+  --cor-fundo: #0f1117;
+  --cor-fundo-card: #1a1d29;
+  --cor-primaria: #7c3aed;
+  --cor-primaria-clara: #a78bfa;
+  --cor-texto: #e5e7eb;
+  --cor-texto-suave: #9ca3af;
+  --cor-borda: #2d3040;
+  --cor-destaque: #22d3ee;
+
+  /* tipografia */
+  --fonte-base: system-ui, "Segoe UI", Arial, sans-serif;
+  --tamanho-texto: 16px;
+  --tamanho-titulo-grande: 2rem;
+  --tamanho-titulo-medio: 1.4rem;
+  --tamanho-titulo-pequeno: 1.1rem;
+
+  /* espaçamento */
+  --espaco-pequeno: 0.5rem;
+  --espaco-medio: 1rem;
+  --espaco-grande: 2rem;
+
+  /* outros */
+  --raio-borda: 8px;
+  --cor-botao-texto: #fff;
+}
+
+body {
+  font-family: var(--fonte-base);
+  font-size: var(--tamanho-texto);
+  line-height: 1.6;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "cabecalho"
+    "conteudo"
+    "rodape";
+  min-height: 100vh;
+}
+
+main {
+  grid-area: conteudo;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--cor-destaque);
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--cor-primaria-clara);
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--espaco-medio);
+}
+
+.botao {
+  display: inline-block;
+  background: var(--cor-primaria);
+  color: var(--cor-botao-texto);
+  text-decoration: none;
+  padding: var(--espaco-pequeno) var(--espaco-grande);
+  border-radius: var(--raio-borda);
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+.botao:hover {
+  background: var(--cor-primaria-clara);
+}
+
+/* ===== Cabeçalho ===== */
+.cabecalho {
+  grid-area: cabecalho;
+  background: var(--cor-fundo-card);
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.cabecalho__conteudo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--espaco-medio);
+  padding-block: var(--espaco-medio);
+}
+
+.logo {
+  font-size: var(--tamanho-titulo-medio);
+  font-weight: 700;
+  color: var(--cor-texto);
+}
+
+.cabecalho nav {
+  display: flex;
+  gap: var(--espaco-grande);
+}
+
+.cabecalho nav a {
+  text-decoration: none;
+  color: var(--cor-texto);
+}
+
+.cabecalho nav a[aria-current="page"] {
+  color: var(--cor-primaria-clara);
+  font-weight: 700;
+}
+
+.cabecalho nav a:hover {
+  color: var(--cor-primaria-clara);
+}
+
+/* ===== Catálogo (lista de produtos) ===== */
+main.container h1 {
+  font-size: var(--tamanho-titulo-grande);
+  margin-block: var(--espaco-medio);
+}
+
+main.container > p {
+  color: var(--cor-texto-suave);
+  margin-bottom: var(--espaco-grande);
+}
+
+.grade-produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--espaco-medio);
+}
+
+.produto-card {
+  background: var(--cor-fundo-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  padding: var(--espaco-medio);
+}
+
+.produto-card h3 {
+  font-size: 1rem;
+  margin-bottom: var(--espaco-pequeno);
+}
+
+.produto-marca {
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+}
+
+.produto-preco {
+  color: var(--cor-primaria-clara);
+  font-weight: 700;
+  font-size: var(--tamanho-titulo-pequeno);
+  margin-block: var(--espaco-pequeno);
+}
+
+.produto-compat {
+  color: var(--cor-texto-suave);
+  font-size: 0.85rem;
+}
+
+/* ===== Rodapé ===== */
+.rodape {
+  grid-area: rodape;
+  border-top: 1px solid var(--cor-borda);
+  padding-block: var(--espaco-medio);
+  text-align: center;
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+}
