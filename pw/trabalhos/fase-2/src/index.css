@@ -179,6 +179,102 @@ main.container > p {
   font-size: 0.85rem;
 }
 
+/* ===== Filtro de categoria ===== */
+.campo-filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-width: 280px;
+  margin-bottom: var(--espaco-grande);
+}
+
+.campo-filtro label {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.campo-filtro select {
+  font: inherit;
+  color: var(--cor-texto);
+  background: var(--cor-fundo-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  padding: 0.6rem var(--espaco-pequeno);
+}
+
+main.container h2 {
+  font-size: var(--tamanho-titulo-medio);
+  margin-block: var(--espaco-grande) var(--espaco-medio);
+}
+
+/* ===== Formulário de contato ===== */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-medio);
+  max-width: 480px;
+  margin-bottom: var(--espaco-grande);
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border: none;
+  padding: 0;
+}
+
+.campo label,
+.campo legend {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  color: var(--cor-texto);
+  background: var(--cor-fundo-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  padding: 0.6rem var(--espaco-pequeno);
+}
+
+.campo textarea {
+  resize: vertical;
+}
+
+fieldset.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-pequeno);
+}
+
+fieldset.campo > div.opcao {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.opcao label {
+  font-weight: 400;
+}
+
+.formulario button.botao {
+  align-self: flex-start;
+}
+
+.formulario-erro {
+  color: #f87171;
+  font-weight: 700;
+}
+
+.formulario-sucesso {
+  color: #4ade80;
+  font-weight: 700;
+}
+
 /* ===== Rodapé ===== */
 .rodape {
   grid-area: rodape;
