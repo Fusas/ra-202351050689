@@ -1,16 +1,55 @@
-# React + Vite
+# Fusas's Store — Fase 2 (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+- **Aluno:** Arthur de Souza Monteiro
+- **Curso/Turma:** pw-2026.2
 
-Currently, two official plugins are available:
+## Descrição
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Versão em React da vitrine de acessórios e periféricos gamer da Fase 1 (`pw/trabalhos/projeto-semestral`). Catálogo com filtro por categoria, página de detalhe por produto, carrinho simulado (Context) e formulário de contato controlado.
 
-## React Compiler
+## Pré-requisitos
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Node.js 22+ e npm.
 
-## Expanding the Oxlint configuration
+## Como rodar
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+cd pw/trabalhos/fase-2
+npm install
+npm run dev
+```
+
+Abra `http://localhost:5173`.
+
+## Páginas / rotas
+
+| Rota | Página |
+|---|---|
+| `/` | Início — catálogo com filtro por categoria |
+| `/produtos/:id` | Detalhe de um produto |
+| `/contato` | Formulário de contato/orçamento |
+| `/sobre` | Sobre o projeto |
+| qualquer outra | Página 404 |
+
+## Tecnologias
+
+- Vite + React 19
+- React Router (rotas e navegação)
+- `useState` (filtro, formulário controlado, carrinho) e `useEffect` + `fetch` (dados do catálogo, com carregando/erro/vazio/sucesso)
+- CSS próprio trazido da Fase 1 (custom properties, Flexbox, Grid, mobile-first)
+
+## Context
+
+Criamos um `CarrinhoContext` (`src/contexts/CarrinhoContext.jsx`) pra guardar os itens adicionados ao carrinho.
+
+**Por que Context e não só props?** O botão "Adicionar ao carrinho" fica dentro de `ProdutoCard`, que está dentro de `Inicio` e de `Detalhe` (páginas diferentes); o contador do carrinho fica no `Cabecalho`, que está fora das duas. Sem Context, o carrinho teria que ser criado lá em cima (no `App`) e passado por props através de `Layout` e de cada página só pra chegar no `Cabecalho` e no `ProdutoCard` — componentes que, no meio do caminho, nem usam esse dado. Com Context, os dois componentes que realmente precisam do carrinho (`Cabecalho`, pro contador, e `ProdutoCard`/`Detalhe`, pro botão) leem direto com o hook `useCarrinho()`, sem ninguém no meio repassando o valor.
+
+## Acessibilidade e responsividade
+
+Visual, tokens de cor/espaçamento, Flexbox/Grid e breakpoints mobile-first trazidos da Fase 1 (onde o Lighthouse marcou 100/100 em Acessibilidade nas 4 páginas), incluindo foco visível (`:focus-visible`) em links, botões e campos.
+
+## Uso de IA
+
+- **Ferramentas usadas:** Claude (Claude Code).
+- **Onde ajudou:** scaffold do projeto Vite+React, componentização, estrutura das rotas com React Router, o Context do carrinho, e o fetch com os 4 estados (carregando/erro/vazio/sucesso).
+- **O que eu revisei/reescrevi:** critério de filtro e textos do catálogo (mantidos da Fase 1), validações do formulário, e testei cada tela no navegador (inclusive simulando erro/vazio) antes de cada commit.
