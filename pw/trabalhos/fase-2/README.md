@@ -2,6 +2,7 @@
 
 - **Aluno:** Arthur de Souza Monteiro
 - **Curso/Turma:** pw-2026.2
+- **Aplicação publicada:** https://fusas.github.io/ra-202351050689/
 
 ## Descrição
 
@@ -37,6 +38,10 @@ Abra `http://localhost:5173`.
 - React Router (rotas e navegação)
 - `useState` (filtro, formulário controlado, carrinho) e `useEffect` + `fetch` (dados do catálogo, com carregando/erro/vazio/sucesso)
 - CSS próprio trazido da Fase 1 (custom properties, Flexbox, Grid, mobile-first)
+
+## Deploy
+
+Publicado via GitHub Pages, a partir da branch `gh-pages` (build gerado com `npm run build`, com `base: '/ra-202351050689/'` no `vite.config.js` e `404.html` igual ao `index.html`, pro React Router funcionar em rotas acessadas direto/recarregadas).
 
 ## Context
 
