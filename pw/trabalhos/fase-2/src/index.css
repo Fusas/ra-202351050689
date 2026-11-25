@@ -275,6 +275,36 @@ fieldset.campo > div.opcao {
   font-weight: 700;
 }
 
+/* ===== Carregando / erro ===== */
+.carregando {
+  color: var(--cor-texto-suave);
+  padding-block: var(--espaco-grande);
+}
+
+.erro {
+  background: #3a1a1a;
+  border: 1px solid #f87171;
+  border-radius: var(--raio-borda);
+  padding: var(--espaco-medio);
+  margin-bottom: var(--espaco-grande);
+}
+
+.erro p {
+  color: #f87171;
+  font-weight: 700;
+  margin-bottom: var(--espaco-pequeno);
+}
+
+.erro button {
+  font: inherit;
+  background: var(--cor-fundo-card);
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  padding: 0.4rem var(--espaco-medio);
+  cursor: pointer;
+}
+
 /* ===== Rodapé ===== */
 .rodape {
   grid-area: rodape;
