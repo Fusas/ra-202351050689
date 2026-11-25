@@ -12,7 +12,7 @@ function Detalhe() {
   const [erro, setErro] = useState(null);
 
   useEffect(() => {
-    fetch("/produtos.json")
+    fetch(`${import.meta.env.BASE_URL}produtos.json`)
       .then((resposta) => {
         if (!resposta.ok) {
           throw new Error("Não foi possível carregar os produtos.");

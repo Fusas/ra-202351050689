@@ -10,7 +10,7 @@ function Inicio() {
   const [categoria, setCategoria] = useState("");
 
   useEffect(() => {
-    fetch("/produtos.json")
+    fetch(`${import.meta.env.BASE_URL}produtos.json`)
       .then((resposta) => {
         if (!resposta.ok) {
           throw new Error("Não foi possível carregar os produtos.");

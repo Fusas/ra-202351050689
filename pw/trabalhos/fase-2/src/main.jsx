@@ -7,7 +7,7 @@ import { CarrinhoProvider } from "./contexts/CarrinhoContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "")}>
       <CarrinhoProvider>
         <App />
       </CarrinhoProvider>
