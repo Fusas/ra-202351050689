@@ -22,6 +22,12 @@ npm run dev
 
 Abra `http://localhost:5173`.
 
+Pra rodar os testes:
+
+```bash
+npm test
+```
+
 ## Páginas / rotas
 
 | Rota | Página |
